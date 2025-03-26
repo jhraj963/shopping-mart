@@ -47,7 +47,7 @@ class LoginController extends Controller
         if (auth()->attempt(array('email' => $request->email, 'password' =>$request->password))){
 
         if (auth()->user()->is_admin==1){
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.home')->with('success', 'Welcome To Admin Panel');
         }else{
             return redirect()->route('home');
         }
