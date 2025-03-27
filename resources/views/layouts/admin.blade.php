@@ -19,6 +19,9 @@
     {{--  Sweet Alrt 2  --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
@@ -92,24 +95,28 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('backend/dist/js/pages/dashboard2.js') }}"></script>
 
-{{--  <script>
-    Swal.fire("Success!", "Your operation was successful!", "success");
-</script>  --}}
-{{--  <script>
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won’t be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        }
-    });
-</script>  --}}
+{{--  before delete showing alert  --}}
+
+<script>  
+         $(document).on("click", "#delete", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to delete?",
+                  text: "Once Delete, This will be Permanently Delete!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Safe Data!");
+                  }
+                });
+            });
+    </script>
 
 {{-- before  logout showing alert message --}}
  <script>
@@ -131,6 +138,7 @@
         });
     }
 </script>
+
 
 <!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -191,6 +199,9 @@
     });
   });
 </script>
+
+//Font Awesome CDN Link
+<script src="https://kit.fontawesome.com/d62daed63a.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
