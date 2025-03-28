@@ -50,7 +50,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="{{ route('subcategory.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sub Category</p>
                 </a>
@@ -71,7 +71,7 @@
             </ul>
           </li>
 
-          
+
           <li class="nav-header">Profile</li>
           <li class="nav-item">
             <a href="{{route('admin.logout')}}" class="nav-link">
