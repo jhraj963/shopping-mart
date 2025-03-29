@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use DataTables;
+use Illuminate\Support\Str;
 
 class ChildcategoryController extends Controller
 {
@@ -32,6 +33,20 @@ $actionbtn='<a href="" class="btn btn-info btn-sm  edit" data-id="{{ $row->id }}
 
 
         }
-            return view('admin.category.childcategory.index');
+            $category=DB::table('categories')->get();
+            return view('admin.category.childcategory.index',compact('category'));
     }
+
+        public function store(Request $request){
+            $categ=DB::table('subcategories')->where('id',$request->subcategory_id)->first();
+
+            $data=array();
+            $data['category_id']=$categ->category_id;
+            $data['subcategory_id']=$request->subcategory_id;
+            $data['childcategory_name']= $request->childcategory_name;
+            $data['childcategory_slug']= Str::slug($request->childcategory_name, '-');
+
+            DB::table('childcategories')->insert($data);
+            return redirect()->back()->with('success', 'Child Category Inserted Successfully.');
+        }
 }

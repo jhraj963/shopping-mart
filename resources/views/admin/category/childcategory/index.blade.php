@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-             <button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">Add New Category</button>
+             <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add New Category</button>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -55,34 +55,39 @@
 
    {{--  Add Sub New Category   --}}
 
-    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Add New Category</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Add New Child Category</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-           <form action="{{ route('subcategory.store') }}" method="POST">
+           <form action="{{ route('childcategory.store') }}" method="POST" id="add-form">
                 @csrf
             <div class="form-group">
-                <label for="category_name">Category Name</label>
-                <select class="form-control" name="category_id" required>
-                    {{--  @foreach ($category as $row)
-                    <option value="{{$row->id}}">{{ $row->category_name }}</option>
-                    @endforeach  --}}
+                <label for="category_name">Category / Sub Category  Name</label>
+                <select class="form-control" name="subcategory_id" required>
+                    @foreach ($category as $row)
+                        @php
+                            $subcategory=DB::table('subcategories')->where('category_id',$row->id)->get();
+                        @endphp
+                    <option>{{ $row->category_name }}</option>
+                        @foreach ($subcategory as $row)
+                                <option value="{{$row->id}}">👉{{ $row->subcategory_name }}</option>
+                        @endforeach
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="category_name">Sub Category Name</label>
-                <input type="text" class="form-control" id="subcategory_name" name="subcategory_name" required>
-                <small id="category_name" class="form-text text-muted">This is Your Sub Category</small>
+                <label for="category_name">Child Category Name</label>
+                <input type="text" class="form-control" id="childcategory_name" name="childcategory_name" required>
+                <small id="category_name" class="form-text text-muted">This is Your Child Category</small>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary"><span class="d-none">Loading...</span> Submit</button>
              </div>
             </form>
         </div>
