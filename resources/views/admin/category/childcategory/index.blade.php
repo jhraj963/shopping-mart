@@ -102,7 +102,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Edit Category</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Child Category</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -133,5 +133,12 @@ $(function childcategory(){
 			]
 		});
 	});
+
+$('body').on('click','.edit', function(){
+         let childcat_id=$(this).data('id');
+         $.get("/childcategory/edit/"+childcat_id, function(data){
+            $("#modal_body").html(data);
+         });
+    });
 </script>
 @endsection
