@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildcategoryController;
+use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -45,6 +46,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/delete/{id}', [ChildcategoryController::class, 'destroy'])->name('childcategory.delete');
         Route::get('/edit/{id}', [ChildcategoryController::class, 'edit']);
         Route::post('/update', [ChildcategoryController::class, 'update'])->name('childcategory.update');
+    });
+
+    //Brand Route List
+    Route::group(['prefix' => 'brand'], function () {
+        Route::get('/', [BrandController::class, 'index'])->name('brand.index');
+        Route::post('/store', [BrandController::class, 'store'])->name('brand.store');
+        // Route::get('/delete/{id}', [BrandController::class, 'destroy'])->name('childcategory.delete');
+        // Route::get('/edit/{id}', [BrandController::class, 'edit']);
+        // Route::post('/update', [BrandController::class, 'update'])->name('childcategory.update');
     });
 
 });
