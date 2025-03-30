@@ -139,7 +139,7 @@ $(function childcategory(){
 
 $('body').on('click','.edit', function(){
          let childcat_id=$(this).data('id');
-         $.get("/childcategory/edit/"+childcat_id, function(data){
+         $.get("/brand/edit/"+childcat_id, function(data){
             $("#modal_body").html(data);
          });
     });
