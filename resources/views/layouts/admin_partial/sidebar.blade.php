@@ -33,13 +33,14 @@
               </p>
             </a>
           </li>
+          {{--  Category  --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Category
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">3</span>
+                <span class="badge badge-info right">4</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -68,6 +69,51 @@
                 </a>
               </li>
               </li>
+            </ul>
+          </li>
+          {{--  Setting  --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Settings
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">5</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('seo.setting') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SEO Setting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('subcategory.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Website Setting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('childcategory.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Page Setting</p>
+                </a>
+              </li>
+            </li>
+              <li class="nav-item">
+                <a href="{{ route('childcategory.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SMTP Setting</p>
+                </a>
+              </li>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('brand.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Payment Gateway</p>
+              </a>
+            </li>
             </ul>
           </li>
 

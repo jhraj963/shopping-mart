@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildcategoryController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -57,6 +58,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/delete/{id}', [BrandController::class, 'destroy'])->name('brand.delete');
         Route::get('/edit/{id}', [BrandController::class, 'edit']);
         Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
+    });
+
+    //Settings Route List
+    Route::group(['prefix' => 'setting'], function () {
+        //SEO Setting
+        Route::group(['prefix' => 'seo'], function () {
+            Route::get('/', [SettingController::class, 'seo'])->name('seo.setting');
+            Route::post('/update/{id}', [SettingController::class, 'update'])->name('seo.setting.update');
+        });
     });
 
 });
