@@ -40,4 +40,30 @@ class SettingController extends Controller
 
         return redirect()->back()->with('success', 'SEO Setting Updated');
     }
+
+
+    // smtp setting
+
+    public function smtp()
+    {
+        $smtp=DB::table('smtp')->first();
+        return view('admin.setting.smtp', compact('smtp'));
+    }
+
+    // smtp Update
+
+
+    public function smtpUpdate(Request $request, $id)
+    {
+        $data = array();
+        $data['mailer'] = $request->mailer;
+        $data['host'] = $request->host;
+        $data['port'] = $request->port;
+        $data['user_name'] = $request->user_name;
+        $data['password'] = $request->password;
+
+        DB::table('smtp')->where('id', $id)->update($data);
+
+        return redirect()->back()->with('success', 'SMTP Setting Updated');
+    }
 }

@@ -67,6 +67,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/', [SettingController::class, 'seo'])->name('seo.setting');
             Route::post('/update/{id}', [SettingController::class, 'update'])->name('seo.setting.update');
         });
+        //SMTP Setting
+        Route::group(['prefix' => 'smtp'], function () {
+            Route::get('/', [SettingController::class, 'smtp'])->name('smtp.setting');
+            Route::post('/update/{id}', [SettingController::class, 'smtpUpdate'])->name('smtp.setting.update');
+        });
     });
 
 });

@@ -102,7 +102,7 @@
               </li>
             </li>
               <li class="nav-item">
-                <a href="{{ route('childcategory.index') }}" class="nav-link">
+                <a href="{{ route('smtp.setting') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SMTP Setting</p>
                 </a>
