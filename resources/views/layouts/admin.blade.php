@@ -30,6 +30,9 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+     <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('backend/plugins/summernote/summernote-bs4.css') }}">
+
 
 </head>
 
@@ -181,6 +184,15 @@
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<script src="{{ asset('backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
+
+<script>
+  $(function () {
+    // Summernote
+    $('.textarea').summernote()
+  })
+</script>
 
 <script>
   $(function () {
