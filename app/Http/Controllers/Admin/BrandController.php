@@ -53,7 +53,7 @@ class BrandController extends Controller
             $photoname=$slug.'.'.$photo->getClientOriginalExtension();
             $photo->move('files/brand/',$photoname); //without image intervention
             // Image::make($photo)->resize(240,120)->save('public/files/brand/', $photoname); //Image Intervention
-            $data['brand_logo']= 'files/brand/'.$photoname;
+        $data['brand_logo']= 'files/brand/'.$photoname;
 
 
         DB::table('brands')->insert($data);

@@ -73,6 +73,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/', [SettingController::class, 'smtp'])->name('smtp.setting');
             Route::post('/update/{id}', [SettingController::class, 'smtpUpdate'])->name('smtp.setting.update');
         });
+        //Website Setting
+        Route::group(['prefix' => 'website'], function () {
+            Route::get('/', [SettingController::class, 'website'])->name('website.setting');
+            Route::post('/update/{id}', [SettingController::class, 'websiteUpdate'])->name('website.setting.update');
+        });
         //Page Setting
         Route::group(['prefix' => 'page'], function () {
             Route::get('/', [PageController::class, 'index'])->name('page.index');
