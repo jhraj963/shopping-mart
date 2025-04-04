@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\WarehouseController;
+use App\Http\Controllers\Admin\CouponController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,6 +33,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
         Route::get('/edit/{id}', [CategoryController::class, 'edit']);
         Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
+    });
+
+    //Coupon Route List
+
+    Route::group(['prefix' => 'coupon'], function () {
+        Route::get('/', [CouponController::class, 'index'])->name('coupon.index');
+        // Route::post('/store', [CouponController::class, 'store'])->name('category.store');
+        // Route::get('/delete/{id}', [CouponController::class, 'destroy'])->name('category.delete');
+        // Route::get('/edit/{id}', [CouponController::class, 'edit']);
+        // Route::post('/update', [CouponController::class, 'update'])->name('category.update');
     });
 
     //Warehouse Route List
