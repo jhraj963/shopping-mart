@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ChildcategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,6 +32,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
         Route::get('/edit/{id}', [CategoryController::class, 'edit']);
         Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
+    });
+
+    //Warehouse Route List
+
+    Route::group(['prefix' => 'warehouse'], function () {
+        Route::get('/', [WarehouseController::class, 'index'])->name('warehouse.index');
+        Route::post('/store', [WarehouseController::class, 'store'])->name('warehouse.store');
+        Route::get('/delete/{id}', [WarehouseController::class, 'destroy'])->name('warehouse.delete');
+        Route::get('/edit/{id}', [WarehouseController::class, 'edit']);
+        Route::post('/update', [WarehouseController::class, 'update'])->name('warehouse.update');
     });
 
     //Sub Category Route List
@@ -68,16 +79,19 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/', [SettingController::class, 'seo'])->name('seo.setting');
             Route::post('/update/{id}', [SettingController::class, 'update'])->name('seo.setting.update');
         });
+
         //SMTP Setting
         Route::group(['prefix' => 'smtp'], function () {
             Route::get('/', [SettingController::class, 'smtp'])->name('smtp.setting');
             Route::post('/update/{id}', [SettingController::class, 'smtpUpdate'])->name('smtp.setting.update');
         });
+
         //Website Setting
         Route::group(['prefix' => 'website'], function () {
             Route::get('/', [SettingController::class, 'website'])->name('website.setting');
             Route::post('/update/{id}', [SettingController::class, 'websiteUpdate'])->name('website.setting.update');
         });
+
         //Page Setting
         Route::group(['prefix' => 'page'], function () {
             Route::get('/', [PageController::class, 'index'])->name('page.index');
