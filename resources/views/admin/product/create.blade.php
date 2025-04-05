@@ -1,6 +1,21 @@
 @extends('layouts.admin')
 @section('admin_content')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css" integrity="sha512-3uVpgbpX33N/XhyD3eWlOgFVAraGn3AfpxywfOTEQeBDByJ/J7HkLvl4mJE1fvArGh4ye1EiPfSBnJo2fgfZmg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script type="text/javascript" src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<style type="text/css">
+  .bootstrap-tagsinput .tag {
+    background: #428bca;;
+    border: 1px solid white;
+    padding: 1 6px;
+    padding-left: 2px;
+    margin-right: 2px;
+    color: white;
+    border-radius: 4px;
+  }
+</style>
+
+
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -63,9 +78,9 @@
                            @php 
                               $subcategory=DB::table('subcategories')->where('category_id',$row->id)->get();
                            @endphp
-                           <option style="color:blue;" disabled="">{{ $row->category_name }}</option>
+                           <option style="color:rgb(50, 172, 26);" disabled="">{{ $row->category_name }}</option>
                               @foreach($subcategory as $row)
-                                <option value="{{ $row->id }}"> -- {{ $row->subcategory_name }}</option>
+                                <option value="{{ $row->id }}"> 👉 {{ $row->subcategory_name }}</option>
                               @endforeach
                         @endforeach 
                       </select>
@@ -123,7 +138,7 @@
                     <div class="form-group col-lg-6">
                       <label for="exampleInputEmail1">Warehouse <span class="text-danger">*</span> </label>
                       <select class="form-control" name="warehouse">
-                        @foreach($warehosue as $row)
+                        @foreach($warehouse as $row)
                          <option value="{{ $row->warehouse_name }}">{{ $row->warehouse_name }}</option>
                         @endforeach 
                       </select>
@@ -222,5 +237,54 @@
     </section>
     <!-- /.content -->
   </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+<script src="{{ asset('public/backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
+
+<script type="text/javascript">
+  $('.dropify').dropify();  //dropify image
+  $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+     //ajax request send for collect childcategory
+     $("#subcategory_id").change(function(){
+      var id = $(this).val();
+      $.ajax({
+           url: "{{ url("/get-child-category/") }}/"+id,
+           type: 'get',
+           success: function(data) {
+                $('select[name="childcategory_id"]').empty();
+                   $.each(data, function(key,data){
+                      $('select[name="childcategory_id"]').append('<option value="'+ data.id +'">'+ data.childcategory_name +'</option>');
+                });
+           }
+        });
+     });
+
+
+
+    $(document).ready(function(){      
+       var postURL = "<?php echo url('addmore'); ?>";
+       var i=1;  
+
+
+       $('#add').click(function(){  
+            i++;  
+            $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" accept="image/*" name="images[]" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+       });  
+
+       $(document).on('click', '.btn_remove', function(){  
+            var button_id = $(this).attr("id");   
+            $('#row'+button_id+'').remove();  
+       });  
+     }); 
+
+
+</script>
 
 @endsection

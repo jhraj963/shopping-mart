@@ -21,15 +21,16 @@ class ProductController extends Controller
         $category=DB::table('categories')->get();
         $brand=DB::table('brands')->get();
         $pickup_point=DB::table('pickup_point')->get();
+        $warehouse=DB::table('warehouses')->get();
 
 
-        return view('admin.product.create', compact('category', 'brand', 'pickup_point'));
+        return view('admin.product.create', compact('category', 'brand', 'pickup_point', 'warehouse'));
     }
 
     // Product Store
 
     public function store(Request $request)
     {
-        
+
     }
 }
