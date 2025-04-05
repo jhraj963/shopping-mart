@@ -100,4 +100,15 @@ class CategoryController extends Controller
 
         return redirect()->back()->with('warning', 'Category Deleted');
     }
+
+
+
+    // Child Category 
+
+    public function GetChildCategory($id)
+    {
+        $data=DB::table('childcategories')->where('subcategory_id', $id)->get();
+
+        return response()->json($data);
+    }
 }

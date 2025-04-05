@@ -74,7 +74,7 @@
                         @php
                             $subcategory=DB::table('subcategories')->where('category_id',$row->id)->get();
                         @endphp
-                    <option>{{ $row->category_name }}</option>
+                    <option disabled="" >{{ $row->category_name }}</option>
                         @foreach ($subcategory as $row)
                                 <option value="{{$row->id}}">👉{{ $row->subcategory_name }}</option>
                         @endforeach

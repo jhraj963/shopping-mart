@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('admin_content')
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css" integrity="sha512-3uVpgbpX33N/XhyD3eWlOgFVAraGn3AfpxywfOTEQeBDByJ/J7HkLvl4mJE1fvArGh4ye1EiPfSBnJo2fgfZmg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="text/javascript" src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <style type="text/css">
@@ -78,7 +77,7 @@
                            @php 
                               $subcategory=DB::table('subcategories')->where('category_id',$row->id)->get();
                            @endphp
-                           <option style="color:rgb(50, 172, 26);" disabled="">{{ $row->category_name }}</option>
+                           <option style="color:rgb(41, 207, 35);" disabled="">{{ $row->category_name }}</option>
                               @foreach($subcategory as $row)
                                 <option value="{{ $row->id }}"> 👉 {{ $row->subcategory_name }}</option>
                               @endforeach
@@ -238,11 +237,12 @@
     <!-- /.content -->
   </div>
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
-<script src="{{ asset('public/backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+{{--  <script src="{{ asset('public/backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>  --}}
+<script src="{{ asset('backend/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+
 
 
 <script type="text/javascript">
@@ -268,6 +268,7 @@
 
 
 
+
     $(document).ready(function(){      
        var postURL = "<?php echo url('addmore'); ?>";
        var i=1;  
@@ -284,7 +285,9 @@
        });  
      }); 
 
+ 
+
+
 
 </script>
-
 @endsection

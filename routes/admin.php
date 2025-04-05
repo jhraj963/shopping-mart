@@ -37,6 +37,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
     });
 
+    // Global Route
+    Route::get('/get-child-category/{id}', [CategoryController::class, 'GetChildCategory']);
+
     //Product Route List
 
     Route::group(['prefix' => 'product'], function () {
