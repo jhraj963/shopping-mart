@@ -39,10 +39,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
 
     Route::group(['prefix' => 'coupon'], function () {
         Route::get('/', [CouponController::class, 'index'])->name('coupon.index');
-        // Route::post('/store', [CouponController::class, 'store'])->name('category.store');
-        // Route::get('/delete/{id}', [CouponController::class, 'destroy'])->name('category.delete');
-        // Route::get('/edit/{id}', [CouponController::class, 'edit']);
-        // Route::post('/update', [CouponController::class, 'update'])->name('category.update');
+        Route::post('/store', [CouponController::class, 'store'])->name('store.coupon');
+        Route::delete('/delete/{id}', [CouponController::class, 'destroy'])->name('coupon.delete');
+        Route::get('/edit/{id}', [CouponController::class, 'edit']);
+        Route::post('/update', [CouponController::class, 'update'])->name('coupon.update');
     });
 
     //Warehouse Route List
