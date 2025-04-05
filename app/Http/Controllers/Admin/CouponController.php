@@ -69,7 +69,6 @@ class CouponController extends Controller
         );
         DB::table('coupons')->where('id', $request->id)->update($data);
         return response()->json('Coupon Successfully Updated!');
-        // return redirect()->back()->with('warning', 'Coupon Successfully Updated!');
     }
 
     //delete coupon

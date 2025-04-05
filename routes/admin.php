@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\PickupController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -111,6 +112,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/delete/{id}', [PageController::class, 'destroy'])->name('page.delete');
             Route::get('/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
             Route::post('/update/{id}', [PageController::class, 'update'])->name('page.update');
+        });
+
+        //Pickup Point
+        Route::group(['prefix' => 'pickup'], function () {
+            Route::get('/', [PickupController::class, 'index'])->name('pickup.index');
+            Route::post('/store', [PickupController::class, 'store'])->name('store.pickup');
+            Route::delete('/delete/{id}', [PickupController::class, 'destroy'])->name('pickup.delete');
+            Route::get('/edit/{id}', [PickupController::class, 'edit']);
+            Route::post('/update', [PickupController::class, 'update'])->name('pickup.update');
         });
     });
 
