@@ -44,7 +44,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
 
     Route::group(['prefix' => 'product'], function () {
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
-        // Route::post('/store', [ProductController::class, 'store'])->name('category.store');
+        Route::post('/store', [ProductController::class, 'store'])->name('store.product');
         // Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('category.delete');
         // Route::get('/edit/{id}', [ProductController::class, 'edit']);
         // Route::post('/update', [ProductController::class, 'update'])->name('category.update');

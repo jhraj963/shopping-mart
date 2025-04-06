@@ -46,7 +46,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-       <form action="#" method="post" enctype="multipart/form-data">
+       <form action="{{ route('store.product') }}" method="post" enctype="multipart/form-data">
         @csrf
        	<div class="row">
           <!-- left column -->
