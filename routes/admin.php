@@ -43,11 +43,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
     //Product Route List
 
     Route::group(['prefix' => 'product'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
         Route::post('/store', [ProductController::class, 'store'])->name('store.product');
         // Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('category.delete');
         // Route::get('/edit/{id}', [ProductController::class, 'edit']);
         // Route::post('/update', [ProductController::class, 'update'])->name('category.update');
+        Route::get('/active-featured/{id}', [ProductController::class, 'activefeatured']);
+        Route::get('/not-featured/{id}', [ProductController::class, 'notfeatured']);
     });
 
     //Coupon Route List

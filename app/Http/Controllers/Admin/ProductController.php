@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use DataTables;
 use Auth;
 use Illuminate\Support\Str;
+use App\Models\Product;
+
 // use Intervention\Image\Facades\Image;
 use Image;
 
@@ -17,6 +20,62 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
+    // prduct show
+
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+              $imgurl='files/product';
+            $data = Product::latest()->get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->editColumn('thumbnail', function($row) use ($imgurl){
+                    return '<img src="'. $imgurl.'/'.$row->thumbnail.'" height="35" width="40">';
+                })
+                ->editColumn('category_name', function($row){
+                    return $row->category->category_name;
+                })
+                ->editColumn('subcategory_name', function($row){
+                    return $row->subcategory->subcategory_name;
+                })
+                ->editColumn('brand_name', function($row){
+                    return $row->brand->brand_name;
+                })
+                ->editColumn('featured', function($row){
+                    if ($row->featured==1){
+                        return '<a href="#" data-id="' . $row->id . '" class="deactive_featurd"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span> </a>';
+                    }else{
+                        return '<a href="#" data-id="' . $row->id . '" class="active_featurd"> <i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span> </a>';
+                    }
+                })
+                ->editColumn('today_deal', function($row){
+                    if ($row->today_deal==1){
+                        return '<a href="#" data-id="' . $row->id . '" class="deactive_featurd"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span> </a>';
+                    }else{
+                        return '<a href="#" data-id="' . $row->id . '" class="active_featurd"> <i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span> </a>';
+                    }
+                })
+                ->editColumn('status', function($row){
+                    if ($row->status==1){
+                        return '<a href="#" data-id="' . $row->id . '" class="deactive_featurd"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span> </a>';
+                    }else{
+                        return '<a href="#" data-id="' . $row->id . '" class="active_featurd"> <i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span> </a>';
+                    }
+                })
+                ->addColumn('action', function ($row) {
+                    $actionbtn = '<a href="" class="btn btn-primary btn-sm  edit">Edit <i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="" class="btn btn-info btn-sm  edit">Show <i class="fas fa-eye"></i></a>
+                            <a href="' . route('brand.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
+
+                    return $actionbtn;
+                })
+                ->rawColumns(['action', 'thumbnail', 'category_name', 'subcategory_name', 'brand_name', 'featured', 'today_deal', 'status'])
+                ->make(true);
+        }
+
+        return view('admin.product.index');
+    }
 
     // Product Create
 
@@ -103,6 +162,20 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Product Upload Successfully.');
     }
 
+    // not featured
 
+    public function notfeatured($id)
+    {
+        DB::table('products')->where('id', $id)->update(['featured'=>0]);
+        return response()->json('Product Not Featured');
+    }
+
+    // active featured
+
+    public function activefeatured($id)
+    {
+        DB::table('products')->where('id', $id)->update(['featured'=>1]);
+        return response()->json('Product Successfully Featured');
+    }
 
 }
