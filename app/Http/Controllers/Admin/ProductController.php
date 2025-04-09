@@ -51,22 +51,22 @@ class ProductController extends Controller
                 })
                 ->editColumn('today_deal', function($row){
                     if ($row->today_deal==1){
-                        return '<a href="#" data-id="' . $row->id . '" class="deactive_featurd"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span> </a>';
+                        return '<a href="#" data-id="' . $row->id . '" class="deactive_deal"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span> </a>';
                     }else{
-                        return '<a href="#" data-id="' . $row->id . '" class="active_featurd"> <i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span> </a>';
+                        return '<a href="#" data-id="' . $row->id . '" class="active_deal"> <i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span> </a>';
                     }
                 })
                 ->editColumn('status', function($row){
                     if ($row->status==1){
-                        return '<a href="#" data-id="' . $row->id . '" class="deactive_featurd"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span> </a>';
+                        return '<a href="#" data-id="' . $row->id . '" class="deactive_status"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span> </a>';
                     }else{
-                        return '<a href="#" data-id="' . $row->id . '" class="active_featurd"> <i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span> </a>';
+                        return '<a href="#" data-id="' . $row->id . '" class="active_status"> <i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span> </a>';
                     }
                 })
                 ->addColumn('action', function ($row) {
                     $actionbtn = '<a href="" class="btn btn-primary btn-sm  edit">Edit <i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="" class="btn btn-info btn-sm  edit">Show <i class="fas fa-eye"></i></a>
-                            <a href="' . route('brand.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
+                            <a href="' . route('product.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
 
                     return $actionbtn;
                 })
@@ -74,7 +74,10 @@ class ProductController extends Controller
                 ->make(true);
         }
 
-        return view('admin.product.index');
+        $category=DB::table('categories')->get();
+        $brand=DB::table('brands')->get();
+
+        return view('admin.product.index', compact('category','brand'));
     }
 
     // Product Create
@@ -176,6 +179,48 @@ class ProductController extends Controller
     {
         DB::table('products')->where('id', $id)->update(['featured'=>1]);
         return response()->json('Product Successfully Featured');
+    }
+
+    // not deal
+
+    public function notdeal($id)
+    {
+        DB::table('products')->where('id', $id)->update(['today_deal'=>0]);
+        return response()->json('Product Not Toaday Deal');
+    }
+
+    // active deal
+
+    public function activedeal($id)
+    {
+        DB::table('products')->where('id', $id)->update(['today_deal'=>1]);
+        return response()->json('Product Successfully Toaday Deal');
+    }
+
+    // not status
+
+    public function notstatus($id)
+    {
+        DB::table('products')->where('id', $id)->update(['status'=>0]);
+        return response()->json('Product Status Deactivated');
+    }
+
+    // active status
+
+    public function activestatus($id)
+    {
+        DB::table('products')->where('id', $id)->update(['status'=>1]);
+        return response()->json('Product Status Activated');
+    }
+
+
+
+    // delete product
+
+    public function destroy($id)
+    {
+        DB::table('products')->where('id', $id)->delete();
+        return response()->json('Product Deleted Successfully');
     }
 
 }

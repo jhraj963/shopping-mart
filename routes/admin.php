@@ -46,11 +46,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
         Route::post('/store', [ProductController::class, 'store'])->name('store.product');
-        // Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('category.delete');
+        Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
         // Route::get('/edit/{id}', [ProductController::class, 'edit']);
         // Route::post('/update', [ProductController::class, 'update'])->name('category.update');
         Route::get('/active-featured/{id}', [ProductController::class, 'activefeatured']);
         Route::get('/not-featured/{id}', [ProductController::class, 'notfeatured']);
+        Route::get('/active-deal/{id}', [ProductController::class, 'activedeal']);
+        Route::get('/not-deal/{id}', [ProductController::class, 'notdeal']);
+        Route::get('/active-status/{id}', [ProductController::class, 'activestatus']);
+        Route::get('/not-status/{id}', [ProductController::class, 'notstatus']);
     });
 
     //Coupon Route List

@@ -13,7 +13,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-             <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add New Product</button>
+            <a href="{{ route('product.create') }}" class="btn btn-primary">Add New Product</a>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -107,6 +107,62 @@ $(function products(){
 	$('body').on('click','.active_featurd', function(){
 	    var id=$(this).data('id');
 		var url = "{{ url('product/active-featured') }}/"+id;
+		$.ajax({
+			url:url,
+			type:'get',
+			success:function(data){  
+	        toastr.success(data);
+	        table.ajax.reload();
+	      }
+	  });
+    });
+
+    // today deal deactive
+	$('body').on('click','.deactive_deal', function(){
+	    var id=$(this).data('id');
+		var url = "{{ url('product/not-deal') }}/"+id;
+		$.ajax({
+			url:url,
+			type:'get',
+			success:function(data){  
+	        toastr.success(data);
+	        table.ajax.reload();
+	      }
+	  });
+    });
+
+    // today deal active
+	$('body').on('click','.active_deal', function(){
+	    var id=$(this).data('id');
+		var url = "{{ url('product/active-deal') }}/"+id;
+		$.ajax({
+			url:url,
+			type:'get',
+			success:function(data){  
+	        toastr.success(data);
+	        table.ajax.reload();
+	      }
+	  });
+    });
+
+    // Status deactive
+	$('body').on('click','.deactive_status', function(){
+	    var id=$(this).data('id');
+		var url = "{{ url('product/not-status') }}/"+id;
+		$.ajax({
+			url:url,
+			type:'get',
+			success:function(data){  
+	        toastr.success(data);
+	        table.ajax.reload();
+	      }
+	  });
+    });
+
+    // Status active
+	$('body').on('click','.active_status', function(){
+	    var id=$(this).data('id');
+		var url = "{{ url('product/active-status') }}/"+id;
 		$.ajax({
 			url:url,
 			type:'get',
