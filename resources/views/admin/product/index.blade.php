@@ -28,36 +28,36 @@
               </div><br>
               <div class="row p-2">
                 <div class="form-group col-3">
-                    <label>All Category</label>
-                    <select class="form-control submitable" name="category_id">
-                        <option disabled="" value="">All Category</option>
+                    <label>Category</label>
+                    <select class="form-control submitable" name="category_id" id="category_id">
+                        <option value="">All Category</option>
                         @foreach ($category as $row)
                             <option value="{{  $row->id }}">{{ $row->category_name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-3">
-                     <label>All Brands</label>
-                    <select class="form-control submitable" name="brand_id">
-                        <option disabled="" value="">All Brands</option>
+                     <label>Brands</label>
+                    <select class="form-control submitable" name="brand_id"  id="brand_id">
+                        <option value="">All Brands</option>
                         @foreach ($brand as $row)
                             <option value="{{  $row->id }}">{{ $row->brand_name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-3">
-                    <label>All Warehouse</label>
-                    <select class="form-control submitable" name="warehouse_id">
-                        <option disabled="" value="">All Warehouse</option>
+                    <label>Warehouse</label>
+                    <select class="form-control submitable" name="warehouse"  id="warehouse">
+                        <option value="">All Warehouse</option>
                         @foreach ($warehouse as $row)
-                            <option value="{{  $row->id }}">{{ $row->warehouse_name }}</option>
+                            <option value="{{  $row->warehouse_name }}">{{ $row->warehouse_name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-3">
                      <label>Status</label>
-                    <select class="form-control submitable" name="status">
-                        <option disabled="" value="">Status</option>
+                    <select class="form-control submitable" name="status"  id="status">
+                        <option value="1">Status</option>
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
                     </select>
@@ -104,9 +104,18 @@
 <script type="text/javascript">
 $(function products(){
 		 table=$('.ytable').DataTable({
-			processing:true,
-			serverSide:true,
-			ajax:"{{ route('product.index') }}",
+	    "processing":true,
+        "serverSide":true,
+        "searching":true,
+        "ajax":{
+            "url": "{{ route('product.index') }}", 
+            "data":function(e) {
+            e.category_id =$("#category_id").val();
+            e.brand_id =$("#brand_id").val();
+            e.status =$("#status").val();
+            e.warehouse =$("#warehouse").val();
+            }
+        },
 			columns:[
 				{data:'DT_RowIndex',name:'DT_RowIndex'},
 				{data:'thumbnail'  ,name:'thumbnail'},
