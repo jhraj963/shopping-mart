@@ -25,6 +25,43 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">All Product List Here</h3>
+              </div><br>
+              <div class="row p-2">
+                <div class="form-group col-3">
+                    <label>All Category</label>
+                    <select class="form-control submitable" name="category_id">
+                        <option disabled="" value="">All Category</option>
+                        @foreach ($category as $row)
+                            <option value="{{  $row->id }}">{{ $row->category_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-3">
+                     <label>All Brands</label>
+                    <select class="form-control submitable" name="brand_id">
+                        <option disabled="" value="">All Brands</option>
+                        @foreach ($brand as $row)
+                            <option value="{{  $row->id }}">{{ $row->brand_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-3">
+                    <label>All Warehouse</label>
+                    <select class="form-control submitable" name="warehouse_id">
+                        <option disabled="" value="">All Warehouse</option>
+                        @foreach ($warehouse as $row)
+                            <option value="{{  $row->id }}">{{ $row->warehouse_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-3">
+                     <label>Status</label>
+                    <select class="form-control submitable" name="status">
+                        <option disabled="" value="">Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                    </select>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -171,6 +208,11 @@ $(function products(){
 	        table.ajax.reload();
 	      }
 	  });
+    });
+
+    //submitable Filtering
+    $(document).on('change','.submitable', function(){
+        $('.ytable').DataTable().ajax.reload();
     });
 
 </script>

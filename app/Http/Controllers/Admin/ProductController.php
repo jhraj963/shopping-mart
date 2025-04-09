@@ -76,8 +76,9 @@ class ProductController extends Controller
 
         $category=DB::table('categories')->get();
         $brand=DB::table('brands')->get();
+        $warehouse=DB::table('warehouses')->get();
 
-        return view('admin.product.index', compact('category','brand'));
+        return view('admin.product.index', compact('category','brand', 'warehouse'));
     }
 
     // Product Create
