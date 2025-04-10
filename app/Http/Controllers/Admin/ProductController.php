@@ -9,6 +9,9 @@ use DataTables;
 use Auth;
 use Illuminate\Support\Str;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Subcategory;
+use App\Models\Brand;
 
 // use Intervention\Image\Facades\Image;
 use Image;
@@ -91,7 +94,7 @@ class ProductController extends Controller
                     }
                 })
                 ->addColumn('action', function ($row) {
-                    $actionbtn = '<a href="" class="btn btn-primary btn-sm  edit">Edit <i class="fa-solid fa-pen-to-square"></i></a>
+                    $actionbtn = '<a href="' . route('product.edit', [$row->id]) . '" class="btn btn-primary btn-sm  edit">Edit <i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="" class="btn btn-info btn-sm  edit">Show <i class="fas fa-eye"></i></a>
                             <a href="' . route('product.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
 
@@ -192,6 +195,19 @@ class ProductController extends Controller
         DB::table('products')->insert($data);
 
         return redirect()->back()->with('success', 'Product Upload Successfully.');
+    }
+
+
+    // Product Edit
+    public function edit($id)
+    {
+        $product=DB::table('products')->where('id', $id)->first();
+        $category=Category::all();
+        $brand=Brand::all();
+        $warehouse = DB::table('warehouses')->get();
+        $pickup_point = DB::table('pickup_point')->get();
+
+        return view('admin.product.edit', compact('product', 'category', 'brand', 'warehouse', 'pickup_point'));
     }
 
     // not featured
