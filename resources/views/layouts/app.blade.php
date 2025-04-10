@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/styles/main_styles.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/styles/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/toastr/toastr.css') }}">
+    {{--  <link rel="stylesheet" href="{{ asset('frontend/styles/cart_styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/styles/cart_responsive.css') }}">  --}}
+
 
 
 </head>
@@ -144,9 +147,7 @@
 		
 		<!-- Main Navigation -->
 
-		@include('layouts.front_partial.navbar')
-
-
+         @yield('navbar')
 	</header>
 	
     @yield('content')
@@ -266,6 +267,7 @@ Copyright &copy;<script data-cfasync="false" src="frontend/../../../cdn-cgi/scri
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
+{{--  <script src="{{ asset('frontend/js/cart_custom.js') }}"></script>  --}}
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

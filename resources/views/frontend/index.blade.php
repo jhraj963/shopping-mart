@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('navbar')
+    @include('layouts.front_partial.navbar')
+@endsection
 @section('content')
 
 	<!-- Banner -->
