@@ -81,14 +81,14 @@
 				<div class="row">
 
 					<!-- Logo -->
-					<div class="col-lg-2 col-sm-3 col-3 order-1">
+					<div class="col-lg-3 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">Shopping Mart</a></div>
 						</div>
 					</div>
 
 					<!-- Search -->
-					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+					<div class="col-lg-5 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
