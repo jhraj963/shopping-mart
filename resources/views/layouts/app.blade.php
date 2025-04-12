@@ -42,8 +42,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="frontend/images/phone.png" alt=""></div>+38 068 005 3570</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="frontend/images/mail.png" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#234542505750424f465063444e424a4f0d404c4e"><span class="__cf_email__" data-cfemail="34525547404755585147745359555d581a575b59">shoppingmart@gmail.com</span></a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>+38 068 005 3570</div>
+                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#234542505750424f465063444e424a4f0d404c4e"><span class="__cf_email__" data-cfemail="34525547404755585147745359555d581a575b59">shoppingmart@gmail.com</span></a></div>
+
 						<div class="top_bar_content ml-auto">
 							<div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">
@@ -64,7 +65,7 @@
 								</ul>
 							</div>
 							<div class="top_bar_user">
-								<div class="user_icon"><img src="frontend/images/user.svg" alt=""></div>
+								<div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div>
 								<div><a href="#">Register</a></div>
 								<div><a href="#">Sign in</a></div>
 							</div>
@@ -83,7 +84,7 @@
 					<!-- Logo -->
 					<div class="col-lg-3 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="#">Shopping Mart</a></div>
+							<div class="logo"><a href="{{ url('/') }}">Shopping Mart</a></div>
 						</div>
 					</div>
 
@@ -108,7 +109,7 @@
 												</ul>
 											</div>
 										</div>
-										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="frontend/images/search.png" alt=""></button>
+										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{{ asset('frontend/images/search.png') }}" alt=""></button>
 									</form>
 								</div>
 							</div>
@@ -119,7 +120,7 @@
 					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
 						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
-								<div class="wishlist_icon"><img src="frontend/images/heart.png" alt=""></div>
+								<div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png') }}" alt=""></div>
 								<div class="wishlist_content">
 									<div class="wishlist_text"><a href="#">Wishlist</a></div>
 									<div class="wishlist_count">115</div>
@@ -130,7 +131,7 @@
 							<div class="cart">
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
-										<img src="frontend/images/cart.png" alt="">
+										<img src="{{ asset('frontend/images/cart.png') }}" alt="">
 										<div class="cart_count"><span>10</span></div>
 									</div>
 									<div class="cart_content">
@@ -242,10 +243,10 @@ Copyright &copy;<script data-cfasync="false" src="frontend/../../../cdn-cgi/scri
 </div>
 						<div class="logos ml-sm-auto">
 							<ul class="logos_list">
-								<li><a href="#"><img src="frontend/images/logos_1.png" alt=""></a></li>
-								<li><a href="#"><img src="frontend/images/logos_2.png" alt=""></a></li>
-								<li><a href="#"><img src="frontend/images/logos_3.png" alt=""></a></li>
-								<li><a href="#"><img src="frontend/images/logos_4.png" alt=""></a></li>
+								<li><a href="#"><img src="{{ asset('frontend/images/logos_1.png') }}" alt=""></a></li>
+                                <li><a href="#"><img src="{{ asset('frontend/images/logos_2.png') }}" alt=""></a></li>
+                                <li><a href="#"><img src="{{ asset('frontend/images/logos_3.png') }}" alt=""></a></li>
+                                <li><a href="#"><img src="{{ asset('frontend/images/logos_4.png') }}" alt=""></a></li>
 							</ul>
 						</div>
 					</div>
@@ -267,7 +268,8 @@ Copyright &copy;<script data-cfasync="false" src="frontend/../../../cdn-cgi/scri
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
-{{--  <script src="{{ asset('frontend/js/cart_custom.js') }}"></script>  --}}
+<script src="{{ asset('frontend/js/product_custom.js') }}"></script>
+<script src="{{ asset('frontend/js/shop_custom.js') }}"></script>
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

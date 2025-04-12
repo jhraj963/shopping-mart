@@ -23,5 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
 
     Route::get('/', [IndexController::class, 'index']);
+    Route::get('/product-details/{slug}', [IndexController::class, 'ProductDetails'])->name('product.details');
 
 });

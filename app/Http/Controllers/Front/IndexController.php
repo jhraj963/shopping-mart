@@ -17,4 +17,13 @@ class IndexController extends Controller
 
         return view('frontend.index', compact('category', 'bannerproduct'));
     }
+
+    // show single product
+
+    public function ProductDetails($slug)
+    {
+        $product=Product::where('slug', $slug)->first();
+        return view('frontend.product_details', compact('product'));
+
+    }
 }
