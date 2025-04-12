@@ -22,25 +22,52 @@
                 </div>
 
                 <!-- Selected Image -->
-                <div class="col-lg-5 order-lg-2 order-1">
+                <div class="col-lg-4 order-lg-2 order-1">
                     <div class="image_selected"><img src="{{ asset('frontend/images/banner_2_product.png') }}" alt=""></div>
                 </div>
 
                 <!-- Description -->
-                <div class="col-lg-5 order-3">
+                <div class="col-lg-4 order-3">
                     <div class="product_description">
-                        <div class="product_category">Laptops</div>
-                        <div class="product_name">MacBook Air 13</div>
+                        <div class="product_category">{{ $product->category->category_name }} > {{ $product->subcategory->subcategory_name }}</div>
+                        <div class="product_name" style="font-size:21px">{{ $product->name }}</div>
+                         <div class="product_category"><b> Brand: {{ $product->brand->brand_name }} </b></div>
                         <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                        <div class="product_text">
+                        @if($product->discount_price==NULL)
+                            <div class="product_price">{{ $setting->currency }}{{ $product->selling_price }}</div>
+                        @else
+                            <div class="product_price"><span><del class="text-danger">{{ $setting->currency }}{{ $product->selling_price }}</del></span>{{ $setting->currency }}{{ $product->discount_price }}</div>
+                        @endif
+                        {{--  <div class="product_price" style="margin-top: 25px">$2000</div>  --}}
+                        {{--  <div class="product_text">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p>
-                        </div>
+                        </div>  --}}
                         <div class="order_info d-flex flex-row">
                             <form action="#">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label>Size</label>
+                                            <select class="form-control form-control-sm" name="size">
+                                                <option>A</option>
+                                                <option>B</option>
+                                                <option>C</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label>Color</label>
+                                            <select class="form-control form-control-sm" name="size">
+                                                <option>A</option>
+                                                <option>B</option>
+                                                <option>C</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="clearfix" style="z-index: 1000;">
 
                                     <!-- Product Quantity -->
-                                    <div class="product_quantity clearfix">
+                                    <div class="product_quantity clearfix ml-2">
                                         <span>Quantity: </span>
                                         <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
                                         <div class="quantity_buttons">
@@ -68,7 +95,6 @@
 
                                 </div>
 
-                                <div class="product_price">$2000</div>
                                 <div class="button_container">
                                     <button type="button" class="button cart_button">Add to Cart</button>
                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -79,6 +105,9 @@
                     </div>
                 </div>
 
+                <div class="col-lg-2 order-4">
+                        dfsg
+                </div>
             </div>
         </div>
     </div>
