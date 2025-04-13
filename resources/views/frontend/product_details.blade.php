@@ -11,19 +11,23 @@
     <div class="single_product">
         <div class="container">
             <div class="row">
-
+                @php
+                    $images=json_decode($product->images,true);
+                    $color=explode(',',$product->color);
+                    $sizes=explode(',',$product->size);
+                @endphp
                 <!-- Images -->
                 <div class="col-lg-2 order-lg-1 order-2">
                     <ul class="image_list">
-                        <li data-image="{{ asset('frontend/images/view_2.jpg') }}"><img src="{{ asset('frontend/images/view_2.jpg') }}" alt=""></li>
-                        <li data-image="{{ asset('frontend/images/featured_6.png') }}"><img src="{{ asset('frontend/images/featured_6.png') }}" alt=""></li>
-                        <li data-image="{{ asset('frontend/images/new_6.jpg') }}"><img src="{{ asset('frontend/images/new_6.jpg') }}" alt=""></li>
+                        @foreach ($images as $image)
+                            <li data-image="{{ asset('files/product/'.$image) }}"><img src="{{ asset('files/product/'.$image) }}" alt=""></li>
+                        @endforeach
                     </ul>
                 </div>
 
                 <!-- Selected Image -->
                 <div class="col-lg-4 order-lg-2 order-1">
-                    <div class="image_selected"><img src="{{ asset('frontend/images/banner_2_product.png') }}" alt=""></div>
+                    <div class="image_selected"><img src="{{ asset('files/product/'.$product->thumbnail) }}" alt=""></div>
                 </div>
 
                 <!-- Description -->
@@ -32,6 +36,8 @@
                         <div class="product_category">{{ $product->category->category_name }} > {{ $product->subcategory->subcategory_name }}</div>
                         <div class="product_name" style="font-size:21px">{{ $product->name }}</div>
                          <div class="product_category"><b> Brand: {{ $product->brand->brand_name }} </b></div>
+                         <div class="product_category"><b> Stock: {{ $product->stock_quantity }} </b></div>
+                         <div class="product_category"><b> Unit: {{ $product->unit }} </b></div>
                         <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
                         @if($product->discount_price==NULL)
                             <div class="product_price">{{ $setting->currency }}{{ $product->selling_price }}</div>
@@ -46,22 +52,28 @@
                             <form action="#">
                                 <div class="form-group">
                                     <div class="row">
+                                        @isset($product->size)
                                         <div class="col-lg-6">
-                                            <label>Size</label>
+                                            <label>Select Color</label>
                                             <select class="form-control form-control-sm" name="size">
-                                                <option>A</option>
-                                                <option>B</option>
-                                                <option>C</option>
+                                               @foreach($color as $row)
+												   <option value="{{ $row }}">{{ $row }}</option>
+												@endforeach
+                                                
+                                            </select>
+                                        </div> 
+                                        @endisset
+                                      
+                                        @isset($product->color)
+                                        <div class="col-lg-6">
+                                            <label>Select Size</label>
+                                            <select class="form-control form-control-sm" name="color">
+                                                @foreach ($sizes as $size)
+                                                    <option>{{ $size }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <label>Color</label>
-                                            <select class="form-control form-control-sm" name="size">
-                                                <option>A</option>
-                                                <option>B</option>
-                                                <option>C</option>
-                                            </select>
-                                        </div>
+                                        @endisset
                                     </div>
                                 </div>
                                 <div class="clearfix" style="z-index: 1000;">
@@ -105,22 +117,49 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2 order-4">
-                        dfsg
+                <div class="col-lg-2 order-4 style="border-left: 1px solid grey; padding-left: 10px;">
+                        <strong class="text-muted">Pickup Point of this product</strong><br>
+				        <i class="fa fa-map"> {{ $product->pickuppoint->pickup_point_name }} </i><hr><br>
+                        <strong class="text-muted"> Home Delivery :</strong><br>
+				 -> (4-8) days after the order placed.<br> 
+				 -> Cash on Delivery Available.
+				 <hr><br>
+				 <strong class="text-muted"> Product Return & Warrenty :</strong><br>
+				 -> 7 days return guarranty.<br> 
+				 -> Warrenty not available.
+				 <hr><br>
+				    @isset($product->video) 
+				 <strong>Product Video : </strong>
+				 <iframe width="340" height="205" src="https://www.youtube.com/embed/{{ $product->video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				    @endisset
                 </div>
             </div>
         </div>
     </div>
 
+    </div><br><br>
+        
+   <div class="row">
+        <div class="col-lg-12">
+            <div class="card-center">
+            <div class="card-header">
+            <h4>Product details of {{ $product->name }}</h4>
+            </div>
+            <div class="card-body">
+                    {!! $product->description !!}
+            </div>
+            </div>
+        </div>
+    </div><br>
 
-	<!-- Recently Viewed -->
+	<!-- Related Product -->
 
     <div class="viewed">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="viewed_title_container">
-                        <h3 class="viewed_title">Recently Viewed</h3>
+                        <h3 class="viewed_title">Related Products</h3>
                         <div class="viewed_nav_container">
                             <div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
                             <div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -132,95 +171,26 @@
                         <!-- Recently Viewed Slider -->
                         <div class="owl-carousel owl-theme viewed_slider">
 
+                            @foreach ($related_product as $row)
                             <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="{{ asset('frontend/images/view_1.jpg') }}" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$225<span>$300</span></div>
-                                        <div class="viewed_name"><a href="#">Beoplay H7</a></div>
+                                <div class="owl-item">
+                                    <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="{{ asset('files/product/'.$row->thumbnail) }}" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            @if($row->discount_price==NULL)
+                                                <div class="viewed_price">{{ $setting->currency }}{{ $row->selling_price }}</div>
+                                            @else
+                                                <div class="viewed_price">{{ $setting->currency }}{{ $row->discount_price }}<span>{{ $setting->currency }}{{ $row->selling_price }}</span></div>
+                                            @endif
+                                            
+                                            <div class="viewed_name"><a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name, 0,50) }}</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                        </ul>
                                     </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
                                 </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="{{ asset('frontend/images/view_2.jpg') }}" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$379</div>
-                                        <div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="{{ asset('frontend/images/view_3.jpg') }}" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$225</div>
-                                        <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="{{ asset('frontend/images/view_4.jpg') }}" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$379</div>
-                                        <div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="{{ asset('frontend/images/view_5.jpg') }}" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$225<span>$300</span></div>
-                                        <div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="{{ asset('frontend/images/view_6.jpg') }}" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$375</div>
-                                        <div class="viewed_name"><a href="#">Speedlink...</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @endforeach
 
                         </div>
 

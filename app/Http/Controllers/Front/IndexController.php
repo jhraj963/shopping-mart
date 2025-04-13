@@ -23,7 +23,8 @@ class IndexController extends Controller
     public function ProductDetails($slug)
     {
         $product=Product::where('slug', $slug)->first();
-        return view('frontend.product_details', compact('product'));
+        $related_product = DB::table('products')->where('subcategory_id', $product->subcategory_id)->orderBy('id', 'DESC')->take(10)->get();
+        return view('frontend.product_details', compact('product', 'related_product'));
 
     }
 }
