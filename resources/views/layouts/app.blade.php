@@ -31,9 +31,9 @@
 <body>
 
 <div class="super_container">
-	
+
 	<!-- Header -->
-	
+
 	<header class="header">
 
 		<!-- Top Bar -->
@@ -46,33 +46,65 @@
                         <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#234542505750424f465063444e424a4f0d404c4e"><span class="__cf_email__" data-cfemail="34525547404755585147745359555d581a575b59">shoppingmart@gmail.com</span></a></div>
 
 						<div class="top_bar_content ml-auto">
+							@if(Auth::check())
+                            <div class="top_bar_menu">
+                                <ul class="standard_dropdown top_bar_dropdown" >
+                                    <li>
+                                        <a href="#">{{ Auth::user()->name }}<i class="fas fa-chevron-down"></i></a>
+                                        <ul style="width:200px;">
+                                            <li><a href="{{ route('home') }}">Profile</a></li>
+                                            <li><a href="{{ route('customer.logout') }}">Logout</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            @endif
+
+                            @guest
 							<div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
-										<a href="#">English<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">English</a></li>
-											<li><a href="#">Bangla</a></li>
+
+
+										<a href="#">Login<i class="fas fa-chevron-down"></i></a>
+										<ul style="width:300px; padding:10px">
+											<div>
+                                                <form action="{{ route('login') }}" method="POST">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="email" class="form-control" name="email" requiired="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Password</label>
+                                                        <input type="password" class="form-control" name="password" requiired="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-sm btn-info">Login</button>
+                                                    </div>
+                                                </form>
+                                            </div>
 										</ul>
+
 									</li>
 									<li>
-										<a href="#">Currency<i class="fas fa-chevron-down"></i></a>
+
+										<a href="#">Register<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a href="#">BDT</a></li>
 											<li><a href="#">Dollar</a></li>
 										</ul>
+
 									</li>
 								</ul>
 							</div>
-							<div class="top_bar_user">
-								<div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div>
-								<div><a href="#">Register</a></div>
-								<div><a href="#">Sign in</a></div>
-							</div>
+                            @endguest
+
 						</div>
 					</div>
 				</div>
-			</div>		
+			</div>
 		</div>
 
 		<!-- Header Main -->
@@ -145,12 +177,12 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Main Navigation -->
 
          @yield('navbar')
 	</header>
-	
+
     @yield('content')
 
 	<!-- Footer -->
@@ -236,7 +268,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					
+
 					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
 						<div class="copyright_content">
 Copyright &copy;<script data-cfasync="false" src="frontend/../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://templatespoint.net/" target="_blank">TemplatesPoint</a>
