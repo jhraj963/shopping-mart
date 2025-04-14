@@ -12,6 +12,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/styles/bootstrap4/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
@@ -23,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/plugins/toastr/toastr.css') }}">
     {{--  <link rel="stylesheet" href="{{ asset('frontend/styles/cart_styles.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/styles/cart_responsive.css') }}">  --}}
+      <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
 
@@ -83,6 +87,17 @@
                                                     <div class="form-group">
                                                         <button type="submit" class="btn btn-sm btn-info">Login</button>
                                                     </div>
+                                                     <div class="form-group row">
+                                                       <div class="offset-md-2">
+                                                           <div class="form-check">
+                                                               <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                                               <label class="form-check-label" for="remember">
+                                                                   {{ __('Remember Me') }}
+                                                               </label>
+                                                           </div>
+                                                       </div>
+                                                   </div>
                                                 </form>
                                             </div>
 										</ul>
@@ -302,7 +317,33 @@ Copyright &copy;<script data-cfasync="false" src="frontend/../../../cdn-cgi/scri
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
 <script src="{{ asset('frontend/js/product_custom.js') }}"></script>
 <script src="{{ asset('frontend/js/shop_custom.js') }}"></script>
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "timeOut": "3000",
+    };
+
+    @if(session('success'))
+        toastr.success("{{ session('success') }}");
+    @endif
+
+    @if(session('error'))
+        toastr.error("{{ session('error') }}");
+    @endif
+
+    @if(session('warning'))
+        toastr.warning("{{ session('warning') }}");
+    @endif
+
+    @if(session('info'))
+        toastr.info("{{ session('info') }}");
+    @endif
+</script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>

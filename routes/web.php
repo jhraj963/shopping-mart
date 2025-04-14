@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
 
     Route::get('/', [IndexController::class, 'index']);
     Route::get('/product-details/{slug}', [IndexController::class, 'ProductDetails'])->name('product.details');
+
+    //Product Review
+    Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 
 });
