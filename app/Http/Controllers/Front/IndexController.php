@@ -15,8 +15,9 @@ class IndexController extends Controller
     {
         $category=DB::table('categories')->get();
         $bannerproduct=Product::where('product_slider',1)->latest()->first();
+        $featured=Product::where('featured',1)->orderBy('id','DESC')->limit(8)->get();
 
-        return view('frontend.index', compact('category', 'bannerproduct'));
+        return view('frontend.index', compact('category', 'bannerproduct', 'featured'));
     }
 
     // show single product

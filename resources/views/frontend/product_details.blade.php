@@ -70,8 +70,9 @@
 					<div class="product_category"><b> Brand: {{ $product->brand->brand_name }} </b></div>
 					<div class="product_category"><b> Stock: {{ $product->stock_quantity }} </b></div>
 					<div class="product_category"><b> Unit: {{ $product->unit }} </b></div>
+                    
 					 {{-- review star --}}
-					 <div>
+					 <div>    
 					@if($sum_rating !=NULL)	
 					 	@if(intval($sum_rating/$count_rating) == 5)
 					 	<span class="fa fa-star checked"></span>
