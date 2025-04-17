@@ -174,10 +174,10 @@
 								  	@if($product->stock_quantity<1)
 								  	<button class="btn btn-outline-danger" disabled="">Stock Out</button>
 								  	@else
-								    <button class="btn btn-outline-info" type="submit"> <span class="loading d-none">....</span> Add to cart</button>
+								    <button class="btn btn-outline-info fa fa-shopping-cart" type="submit"> <span class="loading d-none">....</span> Add to cart</button>
 								    @endif
 
-								    <a href="#" class="btn btn-outline-primary" type="button">Add to wishlist</a>
+								    <a href="{{ route('add.wishlist',$product->id) }}" class="btn btn-outline-primary fa fa-heart" type="button">Add to wishlist</a>
 								  </div>
 								</div>
 							</div>
@@ -353,7 +353,7 @@
 						<strong>All review of {{ $product->name }}</strong> <hr>
 					<div class="row">
 						@foreach($review as $row)
-							<div class="card col-lg-5 m-2">
+							<div class="card col-md-4 m-1">
 						 	 <div class="card-header">
 						 	 		{{ $row->user->name }}  ( {{ date('d F , Y'), strtotime($row->review_date) }} )
 						 	 </div>
