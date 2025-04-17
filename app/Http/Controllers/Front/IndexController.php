@@ -14,10 +14,11 @@ class IndexController extends Controller
     public function index()
     {
         $category=DB::table('categories')->get();
-        $bannerproduct=Product::where('product_slider',1)->latest()->first();
-        $featured=Product::where('featured',1)->orderBy('id','DESC')->limit(8)->get();
+        $bannerproduct=Product::where('status',1)->where('product_slider',1)->latest()->first();
+        $featured=Product::where('status', 1)->where('featured',1)->orderBy('id','DESC')->limit(16)->get();
+        $popular_product=Product::where('status', 1)->orderBy('product_views','DESC')->limit(16)->get();
 
-        return view('frontend.index', compact('category', 'bannerproduct', 'featured'));
+        return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product'));
     }
 
     // show single product
@@ -25,6 +26,7 @@ class IndexController extends Controller
     public function ProductDetails($slug)
     {
         $product=Product::where('slug', $slug)->first();
+                 Product::where('slug', $slug)->increment('product_views');
         $related_product = DB::table('products')->where('subcategory_id', $product->subcategory_id)->orderBy('id', 'DESC')->take(10)->get();
         $review=Review::where('product_id', $product->id)->orderBy('id','DESC')->take(8)->get();
 
