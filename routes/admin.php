@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CampaignController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,6 +66,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::delete('/delete/{id}', [CouponController::class, 'destroy'])->name('coupon.delete');
         Route::get('/edit/{id}', [CouponController::class, 'edit']);
         Route::post('/update', [CouponController::class, 'update'])->name('coupon.update');
+    });
+
+    //Campaing Route List
+
+    Route::group(['prefix' => 'campaign'], function () {
+        Route::get('/', [CampaignController::class, 'index'])->name('campaign.index');
+        // Route::post('/store', [CampaignController::class, 'store'])->name('store.coupon');
+        // Route::delete('/delete/{id}', [CampaignController::class, 'destroy'])->name('coupon.delete');
+        // Route::get('/edit/{id}', [CampaignController::class, 'edit']);
+        // Route::post('/update', [CampaignController::class, 'update'])->name('coupon.update');
     });
 
     //Warehouse Route List
