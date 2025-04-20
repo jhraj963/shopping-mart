@@ -31,6 +31,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
 
     Route::get('/', [IndexController::class, 'index']);
     Route::get('/product-details/{slug}', [IndexController::class, 'ProductDetails'])->name('product.details');
+    //Quick View
+    Route::get('/product-quick-view/{id}', [IndexController::class, 'ProductQuickView']);
 
     //Product Review 
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
