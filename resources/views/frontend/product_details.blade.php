@@ -109,14 +109,14 @@
 					 </div>
 					<div><br>
 						 
-            @if($product->discount_price==NULL)
-             <div class="" style="margin-top: 35px;">Price: {{ $setting->currency }}{{ $product->selling_price }}</div>
-            @else
-              <div class="" >
-              Price: <del class="text-danger">{{ $setting->currency }}{{ $product->selling_price }}</del class="text-danger">
+                        @if($product->discount_price==NULL)
+                        <div class="" style="margin-top: 35px;">Price: {{ $setting->currency }}{{ $product->selling_price }}</div>
+                        @else
+                        <div class="" >
+                        Price: <del class="text-danger">{{ $setting->currency }}{{ $product->selling_price }}</del class="text-danger">
 
-              	{{ $setting->currency }}{{ $product->discount_price }}</div>
-            @endif
+                            {{ $setting->currency }}{{ $product->discount_price }}</div>
+                        @endif
 					</div>
 
 
@@ -125,10 +125,10 @@
 							@csrf
 							<input type="hidden" name="id" value="{{$product->id}}">
 							@if($product->discount_price==NULL)
-              <input type="hidden" name="price" value="{{$product->selling_price}}">
-              @else
-              <input type="hidden" name="price" value="{{$product->discount_price}}">
-              @endif
+                            <input type="hidden" name="price" value="{{$product->selling_price}}">
+                            @else
+                            <input type="hidden" name="price" value="{{$product->discount_price}}">
+                            @endif
 
 							<div class="form-group">
 									<div class="row">

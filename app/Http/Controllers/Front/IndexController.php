@@ -17,8 +17,9 @@ class IndexController extends Controller
         $bannerproduct=Product::where('status',1)->where('product_slider',1)->latest()->first();
         $featured=Product::where('status', 1)->where('featured',1)->orderBy('id','DESC')->limit(16)->get();
         $popular_product=Product::where('status', 1)->orderBy('product_views','DESC')->limit(16)->get();
+        $trendy_product=Product::where('status', 1)->where('trendy', 1)->orderBy('product_views','DESC')->limit(10)->get();
 
-        return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product'));
+        return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product', 'trendy_product'));
     }
 
     // show single product
