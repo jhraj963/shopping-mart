@@ -72,10 +72,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
 
     Route::group(['prefix' => 'campaign'], function () {
         Route::get('/', [CampaignController::class, 'index'])->name('campaign.index');
-        // Route::post('/store', [CampaignController::class, 'store'])->name('store.coupon');
-        // Route::delete('/delete/{id}', [CampaignController::class, 'destroy'])->name('coupon.delete');
-        // Route::get('/edit/{id}', [CampaignController::class, 'edit']);
-        // Route::post('/update', [CampaignController::class, 'update'])->name('coupon.update');
+        Route::post('/store', [CampaignController::class, 'store'])->name('campaign.store');
+        Route::get('/delete/{id}', [CampaignController::class, 'destroy'])->name('campaign.delete');
+        Route::get('/edit/{id}', [CampaignController::class, 'edit']);
+        Route::post('/update', [CampaignController::class, 'update'])->name('campaign.update');
     });
 
     //Warehouse Route List

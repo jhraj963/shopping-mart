@@ -68,7 +68,7 @@
             </button>
         </div>
         <div class="modal-body">
-           <form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data" id="add-form">
+           <form action="{{ route('campaign.store') }}" method="POST" enctype="multipart/form-data" id="add-form">
                 @csrf
 
             <div class="form-group">
@@ -116,7 +116,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Edit Brand</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Campaign</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -160,7 +160,7 @@ $(function childcategory(){
 
 $('body').on('click','.edit', function(){
          let childcat_id=$(this).data('id');
-         $.get("/brand/edit/"+childcat_id, function(data){
+         $.get("/campaign/edit/"+childcat_id, function(data){
             $("#modal_body").html(data);
          });
     });
