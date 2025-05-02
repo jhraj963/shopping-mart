@@ -2,7 +2,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						
+
 						<div class="main_nav_content d-flex flex-row">
 
 							<!-- Categories Menu -->
@@ -20,7 +20,10 @@
                                         $subcategory=DB::table('subcategories')->where('category_id', $row->id)->get();
                                     @endphp
 									<li class="hassubs">
-										<a href="#">{{ $row->category_name }}<i class="fas fa-chevron-right"></i></a>
+										<a href="#">
+<img src="{{ asset($row->icon) }}" height="17" width="20">
+                                            {{ $row->category_name }}<i class="fas fa-chevron-right"></i>
+                                        </a>
 										<ul>
                                                 @foreach ($subcategory as $row)
                                                 @php
@@ -33,10 +36,10 @@
                                                         <li><a href="#">{{ $row->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
                                                     @endforeach
 												</ul>
-											</li>                                                                                  
+											</li>
                                                 @endforeach
 										</ul>
-									</li>                                                               
+									</li>
                                     @endforeach
 								</ul>
 							</div>
@@ -69,16 +72,16 @@
 			</div>
 		</nav>
 
-        		
+
 		<!-- Menu -->
 
 		<div class="page_menu">
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						
+
 						<div class="page_menu_content">
-							
+
 							<div class="page_menu_search">
 								<form action="#">
 									<input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
@@ -145,7 +148,7 @@
 								<li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
 								<li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
 							</ul>
-							
+
 							<div class="menu_contact">
 								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="frontend/images/phone_white.png" alt=""></div>+38 068 005 3570</div>
 								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="frontend/images/mail_white.png" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#fd9b9c8e898e9c91988ebd9a909c9491d39e9290"><span class="__cf_email__" data-cfemail="5f393e2c2b2c3e333a2c1f38323e3633713c3032">[email&#160;protected]</span></a></div>
