@@ -21,7 +21,7 @@
                                     @endphp
 									<li class="hassubs">
 										<a href="#">
-<img src="{{ asset($row->icon) }}" height="17" width="20">
+                                            <img src="{{ asset($row->icon) }}" height="17" width="20">
                                             {{ $row->category_name }}<i class="fas fa-chevron-right"></i>
                                         </a>
 										<ul>
