@@ -13,16 +13,18 @@ class IndexController extends Controller
 {
     public function index()
     {
+        $brand=DB::table('brands')->where('front_page',1)->limit(30)->get();
         $category=DB::table('categories')->get();
         $bannerproduct=Product::where('status',1)->where('product_slider',1)->latest()->first();
         $featured=Product::where('status', 1)->where('featured',1)->orderBy('id','DESC')->limit(16)->get();
         $popular_product=Product::where('status', 1)->orderBy('product_views','DESC')->limit(16)->get();
+        $random_product=Product::where('status', 1)->inRandomOrder()->limit(18)->get();
         $trendy_product=Product::where('status', 1)->where('trendy', 1)->orderBy('product_views','DESC')->limit(10)->get();
 
         //For Home Category
         $home_category = DB::table('categories')->where('home_page',1)->orderBy('category_name','ASC')->get();
 
-        return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product', 'trendy_product','home_category'));
+        return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product', 'trendy_product','home_category', 'brand', 'random_product'));
     }
 
     // show single product

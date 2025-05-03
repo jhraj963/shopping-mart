@@ -28,62 +28,40 @@
 		</div>
 	</div>
 
-	<!-- Characteristics -->
+	<!-- Brands -->
 
-	<div class="characteristics">
+	<div class="brands">
 		<div class="container">
 			<div class="row">
+				<div class="col">
+					<div class="brands_slider_container">
 
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
+						<!-- Brands Slider -->
 
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="frontend/images/char_1.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+						<div class="owl-carousel owl-theme brands_slider">
+
+
+                             @foreach ($brand as $row)
+							<div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center">
+                                   <a  href="" title="{{ $row->brand_name }}">
+                                        <img src="{{ asset($row->brand_logo) }}" alt="{{ $row->brand_name }}" height="45" width="38">
+                                   </a>
+                                </div>
+                            </div>
+                            @endforeach
+
 						</div>
-					</div>
-				</div>
 
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
+						<!-- Brands Slider Navigation -->
+						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
+						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
 
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="frontend/images/char_2.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
-
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="frontend/images/char_3.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
-
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="frontend/images/char_4.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div
 
 	<!-- Deals of the week -->
 
@@ -868,7 +846,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="viewed_title_container">
-						<h3 class="viewed_title">Recently Viewed</h3>
+						<h3 class="viewed_title">Products As You Like</h3>
 						<div class="viewed_nav_container">
 							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -882,20 +860,26 @@
 						<div class="owl-carousel owl-theme viewed_slider">
 
 							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="frontend/images/view_1.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Beoplay H7</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
+                            @foreach ($random_product as $row)
+                                <div class="owl-item">
+                                    <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}"></div>
+                                        <div class="viewed_content text-center">
+                                            @if($row->discount_price==NULL)
+                                                <div class="" style="margin-top: 35px;">Price: {{ $setting->currency }}{{ $row->selling_price }}</div>
+                                                @else
+                                                <div class="" >
+                                                Price: <del class="text-danger">{{ $setting->currency }}{{ $row->selling_price }}</del class="text-danger">
 
+                                                    {{ $setting->currency }}{{ $row->discount_price }}
+                                                </div>
+                                                @endif
+                                            <div class="viewed_name"><a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name,0,18) }}..</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            @endforeach
 						</div>
 					</div>
 				</div>
@@ -903,33 +887,57 @@
 		</div>
 	</div>
 
-	<!-- Brands -->
+	<!-- Characteristics -->
 
-	<div class="brands">
+	<div class="characteristics">
 		<div class="container">
 			<div class="row">
-				<div class="col">
-					<div class="brands_slider_container">
 
-						<!-- Brands Slider -->
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
 
-						<div class="owl-carousel owl-theme brands_slider">
-
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_1.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_2.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_3.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_4.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_5.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_6.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_7.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="frontend/images/brands_8.jpg" alt=""></div></div>
-
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="frontend/images/char_1.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
 						</div>
+					</div>
+				</div>
 
-						<!-- Brands Slider Navigation -->
-						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
-						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
 
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="frontend/images/char_2.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="frontend/images/char_3.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="frontend/images/char_4.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
+						</div>
 					</div>
 				</div>
 			</div>

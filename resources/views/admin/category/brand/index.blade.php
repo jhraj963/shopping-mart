@@ -36,6 +36,7 @@
                     <th>Brand Name</th>
                     <th>Brand Slug</th>
                     <th>Brand Logo</th>
+                    <th>Home Page</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -79,6 +80,14 @@
                 <label for="category_name">Brand Logo</label>
                 <input type="file" class="form-control dropify" id="brand_logo" name="brand_logo" required>
                 <small id="category_name" class="form-text text-muted">This is Your Brand Logo</small>
+            </div>
+            <div class="form-group">
+                <label for="category_name">Show on Home Page</label>
+                <select class="form-control" name="front_page">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </select>
+                <small id="category_name" class="form-text text-muted">If YES, it will show on Your Home Page </small>
             </div>
             <div class="modal-footer">
             <button type="submit" class="btn btn-primary"><span class="d-none">Loading...</span> Submit</button>
@@ -131,6 +140,7 @@ $(function childcategory(){
 				{data:'brand_logo',name:'brand_logo', render:function(data, type, full, meta){
                     return "<img src=\""+data+"\" height=\"30\"/>"
                 }},
+                {data:'front_page'  ,name:'front_page'},
 				{data:'action',name:'action',orderable:true, searchable:true},
 
 			]
