@@ -58,7 +58,7 @@
 
               	<br>
                  <div class="order_info d-flex flex-row">
-                    <form action="#" method="post" id="add_cart_form">
+                    <form action="{{ route('add.to.cart.quickview') }}" method="post" id="add_cart_form">
                       @csrf
                       {{-- cart add details --}}
                       <input type="hidden" name="id" value="{{$product->id}}">
@@ -89,11 +89,11 @@
                                     	</select>
                                     </div>
                                     @endisset
-                                    
+
                                 </div>
                                 <div class="col-lg-4" style="margin-left: -5px;">
                                   <label>Quantity: </label>
-                                    <input type="number" min="1" max="100" name="qty" class="form-control-sm" value="1" style="min-width: 120px; margin-left: -4px;">
+                                    <input type="number" min="1" max="100" name="quantity" class="form-control-sm" value="1" style="min-width: 120px; margin-left: -4px;">
                                 </div>
                             </div>
                         <div class="button_container">
@@ -108,13 +108,13 @@
                               </div>
                             </div>
                         </div>
-                        
+
                     </form>
                  </div>
               </div>
             </div>
           </div>
-        </div> 
+        </div>
 
 
 <script type="text/javascript">
@@ -124,9 +124,9 @@ $('.loader').ready(function() {
     $('.loader').css("display", "none");
   }, 500);
 });
-</script>  
+</script>
 
-{{--  <script type="text/javascript">
+<script type="text/javascript">
   //store coupon ajax call
   $('#add_cart_form').submit(function(e){
     e.preventDefault();
@@ -135,7 +135,7 @@ $('.loader').ready(function() {
     var request =$(this).serialize();
     $.ajax({
       url:url,
-      type:'post',
+      type:'POST',
       async:false,
       data:request,
       success:function(data){
@@ -146,4 +146,4 @@ $('.loader').ready(function() {
       }
     });
   });
-</script>     --}}
+</script>

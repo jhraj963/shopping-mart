@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ReviewController;
+use App\Http\Controllers\Front\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +35,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     //Quick View
     Route::get('/product-quick-view/{id}', [IndexController::class, 'ProductQuickView']);
 
-    //Product Review 
+    //Add to Cart On Quick View
+    Route::post('/addtocart', [CartController::class, 'AddToCartQV'])->name('add.to.cart.quickview');
+
+    //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 
-    //Product Wishlist 
+    //Product Wishlist
     Route::get('/add/wishlist/{id}', [ReviewController::class, 'AddWishlist'])->name('add.wishlist');
 
 });
