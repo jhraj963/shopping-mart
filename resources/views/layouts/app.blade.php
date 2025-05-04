@@ -345,6 +345,27 @@ Copyright &copy;<script data-cfasync="false" src="frontend/../../../cdn-cgi/scri
     @endif
 </script>
 
+
+<script type="text/javascript" charset="utf-8">
+    function cart() {
+         $.ajax({
+            type:'get',
+            url:'#',
+            dataType: 'json',
+            success:function(data){
+               $('.cart_qty').empty();
+               $('.cart_total').empty();
+               $('.cart_qty').append(data.cart_qty);
+               $('.cart_total').append(data.cart_total);
+            }
+        });
+    }
+    $(document).ready(function(event) {
+        cart();
+    });
+
+ </script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>

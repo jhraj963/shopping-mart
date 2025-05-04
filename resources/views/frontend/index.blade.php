@@ -177,7 +177,7 @@
                                                         <div class="product_color">
                                                              <a href="#" class="quick_view" id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
                                                         </div>
-                                                        <button class="product_cart_button">Add to Cart</button>
+                                                        <button class="product_cart_button quick_view"  id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                     </div>
                                                 </div>
                                                 <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -216,7 +216,7 @@
                                                     <div class="product_color">
                                                             <a href="#" class="quick_view" id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button class="product_cart_button quick_view"  id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                 </div>
 											</div>
 											<div class="product_fav"><i class="fas fa-heart"></i></div>

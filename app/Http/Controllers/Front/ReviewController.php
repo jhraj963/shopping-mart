@@ -36,7 +36,7 @@ class ReviewController extends Controller
         $data['review_date']=date('d-m-Y');
         $data['review_month']=date('F');
         $data['review_year']=date('Y');
-        
+
         DB::table('reviews')->insert($data);
 
 
@@ -46,18 +46,37 @@ class ReviewController extends Controller
 
     // Add Wishlist
 
+    // public function AddWishlist($id)
+    // {
+    //     $check=DB::table('wishlists')->where('product_id', $id)->where('user_id', Auth::id())->first();
+
+    //     if($check){
+    //         return redirect()->back()->with('error', 'Already Add This Product On Wishlist');
+    //     }else{
+    //         $data=array();
+    //         $data['product_id']=$id;
+    //         $data['user_id']= Auth::id();
+    //         DB::table('wishlists')->insert($data);
+    //         return redirect()->back()->with('success', 'Product Added On Wishlist');
+    //     }
+    // }
+
     public function AddWishlist($id)
     {
-        $check=DB::table('wishlists')->where('product_id', $id)->where('user_id', Auth::id())->first();
 
-        if($check){
-            return redirect()->back()->with('error', 'Already Add This Product On Wishlist');
-        }else{
-            $data=array();
-            $data['product_id']=$id;
-            $data['user_id']= Auth::id();
-            DB::table('wishlists')->insert($data);
-            return redirect()->back()->with('success', 'Product Added On Wishlist');
+        if(Auth::check()){
+            $check=DB::table('wishlists')->where('product_id',$id)->where('user_id',Auth::id())->first();
+               if ($check) {
+                    return redirect()->back()->with('error', 'Already have it on your wishlist !');
+               }else{
+                    $data=array();
+                    $data['product_id']=$id;
+                    $data['user_id']=Auth::id();
+                    $data['date']=date('d , F Y');
+                    DB::table('wishlists')->insert($data);;
+                    return redirect()->back()->with('success', 'Product added on wishlist!');
+               }
         }
+                    return redirect()->back()->with('error', 'Login Your Account!');
     }
 }
