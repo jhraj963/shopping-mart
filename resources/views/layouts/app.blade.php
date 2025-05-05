@@ -182,7 +182,7 @@
 										<div class="cart_count"><span>{{ Cart::getContent()->count() }}</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
+										<div class="cart_text"><a href="{{ route('cart') }}">Cart</a></div>
 										<div class="cart_price">{{ $setting->currency }} {{ Cart::getTotal() }}</div>
 									</div>
 								</div>

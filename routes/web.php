@@ -38,6 +38,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     //Add to Cart On Quick View
     Route::post('/addtocart', [CartController::class, 'AddToCartQV'])->name('add.to.cart.quickview');
 
+    //Cart
+    Route::get('/all-cart', [CartController::class, 'AllCart'])->name('all.cart');
+    Route::get('/my-cart', [CartController::class, 'MyCart'])->name('cart');
+
     //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 

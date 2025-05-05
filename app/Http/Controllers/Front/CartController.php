@@ -28,4 +28,20 @@ class CartController extends Controller
 
     }
 
+    //all cart
+    public function AllCart()
+    {
+        $data = array();
+        $data['cart_qty'] = Cart::count();
+        $data['cart_total'] = Cart::total();
+        return response()->json($data);
+    }
+
+    //Show My Cart
+    public function MyCart()
+    {
+        $content=Cart::getContent();
+        return view('frontend.cart.cart',compact('content'));
+    }
+
 }
