@@ -188,7 +188,8 @@ return [
         // 'Example' => App\Facades\Example::class,
         // 'Image' => Intervention\Image\Facades\Image::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        // 'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'Cart' => Hardevine\Cart\Facades\Cart::class,
     ])->toArray(),
 
 ];
