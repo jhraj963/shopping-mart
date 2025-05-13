@@ -51,6 +51,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 
     //Product Wishlist
-    Route::get('/add/wishlist/{id}', [ReviewController::class, 'AddWishlist'])->name('add.wishlist');
+    Route::get('/add/wishlist/{id}', [CartController::class, 'AddWishlist'])->name('add.wishlist');
+    Route::get('/wishlist', [CartController::class, 'MyWishlist'])->name('wishlist');
+    Route::get('/clear/wishlist', [CartController::class, 'ClearWishlist'])->name('clear.wishlist');
+    Route::get('/wishlist/product/delete/{id}', [CartController::class, 'WishlistProductDelete'])->name('wishlistproduct.delete');
 
 });

@@ -150,7 +150,7 @@
 							</ul>
 
 							<div class="menu_contact">
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="frontend/images/phone_white.png" alt=""></div>+38 068 005 3570</div>
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="frontend/images/phone_white.png" alt=""></div>+88 01572 378254</div>
 								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="frontend/images/mail_white.png" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#fd9b9c8e898e9c91988ebd9a909c9491d39e9290"><span class="__cf_email__" data-cfemail="5f393e2c2b2c3e333a2c1f38323e3633713c3032">[email&#160;protected]</span></a></div>
 							</div>
 						</div>

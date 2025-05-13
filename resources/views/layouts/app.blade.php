@@ -46,7 +46,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>+38 068 005 3570</div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>+88 01572 378254</div>
                         <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#234542505750424f465063444e424a4f0d404c4e"><span class="__cf_email__" data-cfemail="34525547404755585147745359555d581a575b59">shoppingmart@gmail.com</span></a></div>
 
 						<div class="top_bar_content ml-auto">
@@ -169,7 +169,7 @@
                                     <div class="cart_count"><span>{{ $wishlist }}</span></div>
                                 </div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Wishlist</a></div>
+									<div class="wishlist_text"><a href="{{ route('wishlist') }}">Wishlist</a></div>
 									{{--  <div class="wishlist_count">115</div>  --}}
 								</div>
 							</div>
@@ -212,10 +212,10 @@
 							<div class="logo"><a href="#">Shopping Mart</a></div>
 						</div>
 						<div class="footer_title">Got Question? Call Us 24/7</div>
-						<div class="footer_phone">+38 068 005 3570</div>
+						<div class="footer_phone">+88 01572 378254</div>
 						<div class="footer_contact_text">
-							<p>17 Princess Road, London</p>
-							<p>Grester London NW18JR, UK</p>
+							<p>17 Bordighir Phar, Hathazari Road</p>
+							<p>Chattogram, Bangladesh</p>
 						</div>
 						<div class="footer_social">
 							<ul>

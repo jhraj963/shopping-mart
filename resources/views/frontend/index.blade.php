@@ -180,7 +180,7 @@
                                                         <button class="product_cart_button quick_view"  id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                     </div>
                                                 </div>
-                                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                                <a href="{{ route('add.wishlist',$row->id) }}"><div class="product_fav"><i class="fas fa-heart"></i></div></a>
                                                 <ul class="product_marks">
                                                     <li class="product_mark product_discount">-25%</li>
                                                     <li class="product_mark product_new">new</li>

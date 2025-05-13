@@ -61,22 +61,22 @@ class ReviewController extends Controller
     //     }
     // }
 
-    public function AddWishlist($id)
-    {
+    // public function AddWishlist($id)
+    // {
 
-        if(Auth::check()){
-            $check=DB::table('wishlists')->where('product_id',$id)->where('user_id',Auth::id())->first();
-               if ($check) {
-                    return redirect()->back()->with('error', 'Already have it on your wishlist !');
-               }else{
-                    $data=array();
-                    $data['product_id']=$id;
-                    $data['user_id']=Auth::id();
-                    $data['date']=date('d , F Y');
-                    DB::table('wishlists')->insert($data);;
-                    return redirect()->back()->with('success', 'Product added on wishlist!');
-               }
-        }
-                    return redirect()->back()->with('error', 'Login Your Account!');
-    }
+    //     if(Auth::check()){
+    //         $check=DB::table('wishlists')->where('product_id',$id)->where('user_id',Auth::id())->first();
+    //            if ($check) {
+    //                 return redirect()->back()->with('error', 'Already have it on your wishlist !');
+    //            }else{
+    //                 $data=array();
+    //                 $data['product_id']=$id;
+    //                 $data['user_id']=Auth::id();
+    //                 $data['date']=date('d , F Y');
+    //                 DB::table('wishlists')->insert($data);;
+    //                 return redirect()->back()->with('success', 'Product added on wishlist!');
+    //            }
+    //     }
+    //                 return redirect()->back()->with('error', 'Login Your Account!');
+    // }
 }

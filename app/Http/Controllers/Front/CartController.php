@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 // use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Cart;
-
+use Auth;
+use DB;
 use App\Models\Product;
 
 class CartController extends Controller
@@ -91,6 +92,53 @@ class CartController extends Controller
         Cart::destroy();
 
         return redirect()->to('/')->with('error', 'You Cart Is Empty');
+    }
+
+
+    //Add Wishlist
+    public function AddWishlist($id)
+    {
+
+        if (Auth::check()) {
+            $check = DB::table('wishlists')->where('product_id', $id)->where('user_id', Auth::id())->first();
+            if ($check) {
+                return redirect()->back()->with('error', 'Already have it on your wishlist !');
+            } else {
+                $data = array();
+                $data['product_id'] = $id;
+                $data['user_id'] = Auth::id();
+                $data['date'] = date('Y-m-d');
+                DB::table('wishlists')->insert($data);;
+                return redirect()->back()->with('success', 'Product added on wishlist!');
+            }
+        }
+        return redirect()->back()->with('error', 'Login Your Account!');
+    }
+
+    //My Wishlist
+    public function MyWishlist()
+    {
+        if(Auth::check()){
+
+        $wishlist=DB::table('wishlists')->leftJoin('products', 'wishlists.product_id','products.id')->select('products.name','products.thumbnail','products.slug','wishlists.*')->where('wishlists.user_id', Auth::id())->get();
+
+        return view('frontend.cart.wishlist', compact('wishlist'));
+    }
+        return redirect()->back()->with('error', 'Login Your Account!');
+    }
+
+    //My Wishlist Clear
+    public function ClearWishlist()
+    {
+        DB::table('wishlists')->where('user_id', Auth::id())->delete();
+        return redirect()->to('/')->with('success', 'Wishlist Cleared');
+    }
+
+    //My Wishlist Product Delete
+    public function WishlistProductDelete($id)
+    {
+        DB::table('wishlists')->where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Removed From Wishlist');
     }
 
 }
