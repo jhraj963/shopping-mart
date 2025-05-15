@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
+    <link rel="stylesheet" href="{{ asset('frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
+    {{--  <link rel="stylesheet" href="{{ asset('frontend/styles/shop_styles.css') }}">  --}}
+    <link rel="stylesheet" href="{{ asset('frontend/styles/shop_responsive.css') }}">
+
 
 </head>
 
@@ -317,6 +321,11 @@ Copyright &copy;<script data-cfasync="false" src="frontend/../../../cdn-cgi/scri
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
 <script src="{{ asset('frontend/js/product_custom.js') }}"></script>
 <script src="{{ asset('frontend/js/shop_custom.js') }}"></script>
+<script src="{{ asset('frontend/plugins/Isotope/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+<script src="{{ asset('frontend/plugins/parallax-js-master/parallax.min.js') }}"></script>
+
+
 <!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

@@ -47,4 +47,13 @@ class IndexController extends Controller
         $product=Product::where('id',$id)->first();
         return view('frontend.product.quick_view',compact('product'));
     }
+
+    // Category Wise Product
+    public function CategoryWiseProduct($id)
+    {
+        $subcategory=DB::table('subcategories')->where('category_id',$id)->get();
+        $brand=DB::table('brands')->get();
+        $products=DB::table('products')->where('category_id',$id)->paginate(70);
+        return view('frontend.product.category_product',compact('subcategory','brand','products'));
+    }
 }

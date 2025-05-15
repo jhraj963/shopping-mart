@@ -56,4 +56,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     Route::get('/clear/wishlist', [CartController::class, 'ClearWishlist'])->name('clear.wishlist');
     Route::get('/wishlist/product/delete/{id}', [CartController::class, 'WishlistProductDelete'])->name('wishlistproduct.delete');
 
+    // Category Wise Product
+    Route::get('/cateogry/product/{id}', [IndexController::class, 'CategoryWiseProduct'])->name('categorywise.product');
+
 });
