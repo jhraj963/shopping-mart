@@ -59,4 +59,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     // Category Wise Product
     Route::get('/cateogry/product/{id}', [IndexController::class, 'CategoryWiseProduct'])->name('categorywise.product');
 
+    // Category Wise Product
+    Route::get('/subcateogry/product/{id}', [IndexController::class, 'SubcategoryWiseProduct'])->name('subcategorywise.product');
+
+    // Category Wise Product
+    Route::get('/childcateogry/product/{id}', [IndexController::class, 'ChildcategoryWiseProduct'])->name('childcategorywise.product');
+
+    // Brand Wise Product
+    Route::get('/brand/product/{id}', [IndexController::class, 'BrandWiseProduct'])->name('brandwise.product');
+
 });

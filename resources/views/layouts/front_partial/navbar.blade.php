@@ -30,10 +30,10 @@
                                             $childcategory=DB::table('childcategories')->where('subcategory_id', $row->id)->get();
                                         @endphp
                                     <li class="hassubs">
-                                        <a href="#">{{ $row->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
+                                        <a href="{{ route('subcategorywise.product', $row->id) }}">{{ $row->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
                                         <ul>
                                             @foreach ($childcategory as $row)
-                                                <li><a href="#">{{ $row->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
+                                                <li><a href="{{ route('childcategorywise.product', $row->id) }}">{{ $row->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
                                             @endforeach
                                         </ul>
                                     </li>
@@ -49,9 +49,10 @@
                     <div class="main_nav_menu ml-auto">
                         <ul class="standard_dropdown main_nav_dropdown">
                             <li><a href="{{ url('/') }}">Home<i class="fas fa-chevron-down"></i></a></li>
-                            <li><a href="blog.html">Campaign<i class="fas fa-chevron-down"></i></a></li>
-                            <li><a href="#">Contact<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="#">Campaign<i class="fas fa-chevron-down"></i></a></li>
                             <li><a href="#">Helpline<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="#">Blog<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="#">Contact<i class="fas fa-chevron-down"></i></a></li>
                         </ul>
                     </div>
 

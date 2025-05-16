@@ -14,7 +14,7 @@ class IndexController extends Controller
     public function index()
     {
         $brand=DB::table('brands')->where('front_page',1)->limit(30)->get();
-        $category=DB::table('categories')->get();
+        $category=DB::table('categories')->orderBy('category_name', 'ASC')->get();
         $bannerproduct=Product::where('status',1)->where('product_slider',1)->latest()->first();
         $featured=Product::where('status', 1)->where('featured',1)->orderBy('id','DESC')->limit(16)->get();
         $popular_product=Product::where('status', 1)->orderBy('product_views','DESC')->limit(16)->get();
@@ -51,9 +51,44 @@ class IndexController extends Controller
     // Category Wise Product
     public function CategoryWiseProduct($id)
     {
+        $category=DB::table('categories')->where('id',$id)->first();
         $subcategory=DB::table('subcategories')->where('category_id',$id)->get();
         $brand=DB::table('brands')->get();
-        $products=DB::table('products')->where('category_id',$id)->paginate(70);
-        return view('frontend.product.category_product',compact('subcategory','brand','products'));
+        $products=DB::table('products')->where('category_id',$id)->paginate(20);
+        $random_product = Product::where('status', 1)->inRandomOrder()->limit(18)->get();
+        return view('frontend.product.category_product',compact('category','subcategory','brand','products', 'random_product'));
+    }
+
+    // Sub Category Wise Product
+    public function SubcategoryWiseProduct($id)
+    {
+        $subcategory = DB::table('subcategories')->where('id', $id)->first();
+        $childcategory=DB::table('childcategories')->where('subcategory_id',$id)->get();
+        $brand=DB::table('brands')->get();
+        $products=DB::table('products')->where('subcategory_id',$id)->paginate(20);
+        $random_product = Product::where('status', 1)->inRandomOrder()->limit(18)->get();
+        return view('frontend.product.subcategory_product',compact('subcategory','childcategory','brand','products', 'random_product'));
+    }
+
+    // Child Category Wise Product
+    public function ChildcategoryWiseProduct($id)
+    {
+        $childcategory = DB::table('childcategories')->where('id', $id)->first();
+        $category=DB::table('categories')->get();
+        $brand=DB::table('brands')->get();
+        $products=DB::table('products')->where('childcategory_id',$id)->paginate(20);
+        $random_product = Product::where('status', 1)->inRandomOrder()->limit(18)->get();
+        return view('frontend.product.childcategory_product',compact('childcategory','category','brand','products', 'random_product'));
+    }
+
+    // Brand Wise Product
+    public function BrandWiseProduct($id)
+    {
+        $brand = DB::table('brands')->where('id', $id)->first();
+        $category=DB::table('categories')->get();
+        $brands=DB::table('brands')->get();
+        $products=DB::table('products')->where('brand_id',$id)->paginate(20);
+        $random_product = Product::where('status', 1)->inRandomOrder()->limit(18)->get();
+        return view('frontend.product.brand_product',compact('brand','category','brands','products', 'random_product'));
     }
 }

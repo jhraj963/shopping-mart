@@ -44,7 +44,7 @@
                              @foreach ($brand as $row)
 							<div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center">
-                                   <a  href="" title="{{ $row->brand_name }}">
+                                   <a  href="{{ route('brandwise.product', $row->id) }}" title="{{ $row->brand_name }}">
                                         <img src="{{ asset($row->brand_logo) }}" alt="{{ $row->brand_name }}" height="45" width="38">
                                    </a>
                                 </div>
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 		</div>
-	</div
+	</div>
 
 	<!-- Deals of the week -->
 
@@ -90,7 +90,7 @@
 										</div>
 										<div class="deals_info_line d-flex flex-row justify-content-start">
 											<div class="deals_item_name">
-                                                <a href="">{{ $row->name }}</a>
+                                                <a href="{{ route('product.details',$row->slug) }}">{{ $row->name }}</a>
                                             </div>
 											<div class="deals_item_price ml-auto">
                                                 @if($row->discount_price==NULL)
@@ -301,7 +301,7 @@
 								<div class="popular_category d-flex flex-column align-items-center justify-content-center">
 									<div class="popular_category_image"><img src="{{ asset($row->icon) }}" alt="{{ $row->category_name }}"></div>
 									<div class="popular_category_text">
-                                        <a href="">{{ $row->category_name }}</a>
+                                        <a href="{{ route('categorywise.product', $row->id) }}">{{ $row->category_name }}</a>
                                     </div>
 								</div>
 							</div>
