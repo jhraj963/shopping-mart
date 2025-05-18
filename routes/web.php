@@ -50,6 +50,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 
+    //Review For Website As A Customer
+    Route::get('/write/review', [ReviewController::class, 'write'])->name('write.review');
+    Route::post('/store/website/review', [ReviewController::class, 'StoreWebsiteReview'])->name('store.website.review');
+
     //Product Wishlist
     Route::get('/add/wishlist/{id}', [CartController::class, 'AddWishlist'])->name('add.wishlist');
     Route::get('/wishlist', [CartController::class, 'MyWishlist'])->name('wishlist');
