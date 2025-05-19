@@ -843,9 +843,10 @@
 							<div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
-							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
-								<button class="newsletter_button">Subscribe</button>
+							<form action="{{ route('store.newsletter') }}" class="newsletter_form" method="post" id="newsletter_form">
+                                @csrf
+								<input type="email" name="email" class="newsletter_input" required="required" placeholder="Enter your email address">
+								<button class="newsletter_button" type="submit">Subscribe</button>
 							</form>
 							<div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
 						</div>
@@ -888,6 +889,22 @@
         });
 
 
+    // NewsLetter Form
+    $('#newsletter_form').submit(function(e){
+        e.preventDefault();
+        var url = $(this).attr('action');
+        var request =$(this).serialize();
+        $.ajax({
+          url:url,
+          type:'post',
+          async:false,
+          data:request,
+          success:function(data){
+            toastr.success(data);
+            $('#newsletter_form')[0].reset();
+          }
+        });
+      });
 
 </script>
 

@@ -82,4 +82,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     // Page View
     Route::get('/page/{page_slug}', [IndexController::class, 'ViewPage'])->name('view.page');
 
+    // NewsLetter
+    Route::post('/store/newsletter', [IndexController::class, 'StoreNewsletter'])->name('store.newsletter');
+
 });
