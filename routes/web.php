@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     //Review For Website As A Customer
     Route::get('/write/review', [ReviewController::class, 'write'])->name('write.review');
     Route::post('/store/website/review', [ReviewController::class, 'StoreWebsiteReview'])->name('store.website.review');
+
+    // Customer Profile Setting
+    Route::get('/home/setting', [ProfileController::class, 'CustomerSetting'])->name('customer.setting');
+
+    // Customer Change Password
+    Route::post('/home/password/update', [ProfileController::class, 'PasswordChange'])->name('customer.password.change');
 
     //Product Wishlist
     Route::get('/add/wishlist/{id}', [CartController::class, 'AddWishlist'])->name('add.wishlist');
