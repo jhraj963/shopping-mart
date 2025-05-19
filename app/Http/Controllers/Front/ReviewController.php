@@ -51,8 +51,24 @@ class ReviewController extends Controller
     }
 
     //Review Store For Website As A Customer
-    public function StoreWebsiteReview()
+    public function StoreWebsiteReview(Request $request)
     {
-        return view('user.review_write');
+        $check=DB::table('wbreviews')->where('user_id', Auth::id())->first();
+        if($check){
+                    return redirect()->back()->with('error', 'Review Already Exists!');
+        }
+
+        $data = array();
+        $data['user_id'] = Auth::id();
+        $data['name'] = $request->name;
+        $data['review'] = $request->review;
+        $data['rating'] = $request->rating;
+        $data['review_date'] = date('d-m-Y');
+        $data['status'] = 0;
+
+        DB::table('wbreviews')->insert($data);
+
+
+        return redirect()->back()->with('success', 'Thanks For Review For Our Website');
     }
 }
