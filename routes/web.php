@@ -79,4 +79,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     // Brand Wise Product
     Route::get('/brand/product/{id}', [IndexController::class, 'BrandWiseProduct'])->name('brandwise.product');
 
+    // Page View
+    Route::get('/page/{page_slug}', [IndexController::class, 'ViewPage'])->name('view.page');
+
 });

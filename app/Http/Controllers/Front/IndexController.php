@@ -92,4 +92,13 @@ class IndexController extends Controller
         $random_product = Product::where('status', 1)->inRandomOrder()->limit(18)->get();
         return view('frontend.product.brand_product',compact('brand','category','brands','products', 'random_product'));
     }
+
+
+    // Page View
+
+    public function ViewPage($page_slug)
+    {
+        $page=DB::table('pages')->where('page_slug', $page_slug)->first();
+        return view('frontend.page',compact('page'));
+    }
 }
