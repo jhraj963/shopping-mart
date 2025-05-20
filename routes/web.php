@@ -5,6 +5,7 @@ use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\ProfileController;
+use App\Http\Controllers\Front\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     Route::get('/all-cart', [CartController::class, 'AllCart'])->name('all.cart');
     Route::get('/my-cart', [CartController::class, 'MyCart'])->name('cart');
     Route::get('/cart/empty', [CartController::class, 'EmptyCart'])->name('cart.empty');
+
+    //Checkout
+    Route::get('/checkout', [CheckoutController::class, 'Checkout'])->name('checkout');
 
     //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');

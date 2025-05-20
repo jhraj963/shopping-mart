@@ -49,7 +49,7 @@ class LoginController extends Controller
         if (auth()->user()->is_admin==1){
             return redirect()->route('admin.home')->with('success', 'Welcome To Admin Panel');
         }else{
-            return redirect()->route('home');
+            return redirect()->back();
         }
             }else{
         return redirect()->back()->with('error', 'Invalid email or passowrd');
