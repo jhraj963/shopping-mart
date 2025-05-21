@@ -79,7 +79,7 @@
 						
 					</div>
 				</div>
-                <div class="col-lg-4" style="margin-top: 85px">
+                <div class="col-lg-4" >
                     <!-- Order Total -->
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
@@ -87,9 +87,25 @@
 								<div class="order_total_amount">{{ $setting->currency }} {{ Cart::subtotal() }}</div>
 							</div>
 						</div>
+						    @if(Session::has('coupon'))
+                        <div class="order_total">
+							<div class="order_total_content text-md-right">
+								<div class="order_total_title">Coupon Name({{ Session::get('coupon')['name'] }}):</div>
+								<div class="order_total_amount">{{ $setting->currency }} {{ Session::get('coupon')['discount'] }}</div>
+							</div>
+						</div>
+                                @else
+                            @endif
+						<div class="order_total">
+							<div class="order_total_content text-md-right">
+								<div class="order_total_title">Coupon:</div>
+								<div class="order_total_amount">{{ $setting->currency }} 0.00</div>
+							</div>
+						</div>
                         <div class="order_total mt-4 p-3" style="background-color: #f3f3f3; border: 1px solid #e1e1e1;">
                             <div class="order_total_content text-md-right">
-                                <form action="#" method="post" class="w-100 text-left">
+                                @if(!Session::has('coupon'))
+                                <form action="{{ route('apply.coupon') }}" method="post" class="w-100 text-left">
                                     @csrf
                                     <div style="font-weight: 600; font-size: 16px;" class="mb-2">Apply Coupon</div>
                                     <div class="form-group mb-2">
@@ -99,6 +115,9 @@
                                         <button type="submit" class="btn btn-info btn-sm">Apply</button>
                                     </div>
                                 </form>
+                                @else
+                                <strong>Coupon Applied</strong>
+                                @endif
                             </div>
                         </div></br></br>
 

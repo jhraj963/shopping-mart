@@ -52,6 +52,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     //Checkout
     Route::get('/checkout', [CheckoutController::class, 'Checkout'])->name('checkout');
 
+    //Coupon
+    Route::post('/apply/coupon', [CheckoutController::class, 'ApplyCoupon'])->name('apply.coupon');
+
     //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 
