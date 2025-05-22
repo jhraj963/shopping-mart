@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use DB;
 use Illuminate\Pagination\Paginator;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**

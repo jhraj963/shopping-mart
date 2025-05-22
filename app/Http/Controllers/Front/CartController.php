@@ -17,14 +17,13 @@ class CartController extends Controller
     {
 
         $product = Product::find($request->id);
-
         Cart::add([
         'id'=>$product->id,
         'name'=>$product->name,
         'qty'=>$request->quantity,
         'price'=>$request->price,
         'weight'=>'1',
-        'options'=>['size'=>$request->size, 'color'=>$request->color, 'thumbnail'=> $product->thumbnail ?? 'no_image.jpg',]
+        'options'=>['size'=>$request->size, 'color'=>$request->color, 'thumbnail'=> $product->thumbnail ?? 'no_image.jpg', 'tax' => 0]
         ]);
         // dd($product->thumbnail);
         return response()->json("Ado To Cart Successfully");

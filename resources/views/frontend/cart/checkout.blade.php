@@ -69,7 +69,7 @@
                                    
                           </div>
                           <div class="form-group pl-2">
-                                <button type="submit" class="btn btn-info p-2">Order Place</button>
+                                <button type="submit" class="btn btn-warning">Order Place</button>
                           </div>
 
                           <span class="visually-hidden pl-2 d-none progress">Progressing.....</span>
@@ -79,29 +79,56 @@
 						
 					</div>
 				</div>
+                
+                
                 <div class="col-lg-4" >
                     <!-- Order Total -->
-						<div class="order_total">
-							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Order Total:</div>
-								<div class="order_total_amount">{{ $setting->currency }} {{ Cart::subtotal() }}</div>
-							</div>
-						</div>
-						    @if(Session::has('coupon'))
                         <div class="order_total">
-							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Coupon Name({{ Session::get('coupon')['name'] }}):</div>
-								<div class="order_total_amount">{{ $setting->currency }} {{ Session::get('coupon')['discount'] }}</div>
-							</div>
-						</div>
+                            <div class="order_total_content text-md-right">
+                                <div class="order_total_title">Sub Total:</div>
+                                <div class="order_total_amount">{{ $setting->currency }} {{ Cart::subtotal() }}</div>
+                            </div>
+                        </div>
+
+                        {{--  apply Coupon  --}}
+                            @if(Session::has('coupon'))
+                        <div class="order_total">
+                            <div class="order_total_content text-md-right">
+                                <div class="order_total_title"><a href="{{ route('remove.coupon') }}" class="badge rounded-pill bg-danger text-white">Remove Coupon</a> Name({{ Session::get('coupon')['name'] }}):</div>
+                                <div class="order_total_amount">{{ $setting->currency }} {{ Session::get('coupon')['discount'] }}</div>
+                            </div>
+                        </div>
                                 @else
                             @endif
-						<div class="order_total">
-							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Coupon:</div>
-								<div class="order_total_amount">{{ $setting->currency }} 0.00</div>
-							</div>
-						</div>
+                        <div class="order_total">
+                            <div class="order_total_content text-md-right">
+                                <div class="order_total_title">Tax:</div>
+                                <div class="order_total_amount">{{ $setting->currency }} 0.00</div>
+                            </div>
+                        </div>
+                        <div class="order_total">
+                            <div class="order_total_content text-md-right">
+                                <div class="order_total_title">Shipping Charge:</div>
+                                <div class="order_total_amount">{{ $setting->currency }} 0.00</div>
+                            </div>
+                        </div>
+
+                            @if(Session::has('coupon'))
+                        <div class="order_total">
+                            <div class="order_total_content text-md-right">
+                                <div class="order_total_title">Total Amount:</div>
+                                <div class="order_total_amount">{{ $setting->currency }} {{ Session::get('coupon')['after_discount'] }}</div>
+                            </div>
+                        </div>
+                            @else
+                        <div class="order_total">
+                            <div class="order_total_content text-md-right">
+                                <div class="order_total_title">Total Amount:</div>
+                                <div class="order_total_amount">{{ $setting->currency }} {{ Cart::subtotal() }}</div>
+                            </div>
+                        </div>
+                            @endif
+
                         <div class="order_total mt-4 p-3" style="background-color: #f3f3f3; border: 1px solid #e1e1e1;">
                             <div class="order_total_content text-md-right">
                                 @if(!Session::has('coupon'))
@@ -121,10 +148,11 @@
                             </div>
                         </div></br></br>
 
-						<div class="cart_buttons">
-							<a href="{{ route('checkout') }}" type="button" class="btn btn-warning">Payment Now</a>
-						</div>
+                        {{--  <div class="cart_buttons">
+                            <a href="{{ route('checkout') }}" type="button" class="btn btn-warning">Payment Now</a>
+                        </div>  --}}
                 </div>
+
 			</div>
 		</div>
 	</div>
