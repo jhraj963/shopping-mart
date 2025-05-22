@@ -56,6 +56,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     Route::post('/apply/coupon', [CheckoutController::class, 'ApplyCoupon'])->name('apply.coupon');
     Route::get('/remove/coupon', [CheckoutController::class, 'RemoveCoupon'])->name('remove.coupon');
 
+    //Order
+    Route::post('/order/place', [CheckoutController::class, 'OrderPlace'])->name('order.place');
+
     //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 

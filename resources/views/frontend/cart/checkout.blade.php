@@ -17,7 +17,7 @@
 				<div class="col-lg-8">
 					<div class="cart_container">
 						<div class="cart_title">Checkout Now</div>
-						<form action="#" method="post" id="order-place">
+						<form action="{{ route('order.place') }}" method="post" id="order-place">
                             @csrf
                           <div class="row p-4">
                             <div class="form-group col-lg-6">
@@ -60,7 +60,7 @@
                                    </div>
                                    <div class="form-group col-lg-4">
                                      <label>Bkash/Rocket/Nagad/Upay </label>
-                                     <input type="radio"  name="payment_type" checked="" value="Aamarpay" >
+                                     <input type="radio"  name="payment_type" checked="" value="SSL Commerze" >
                                    </div>
                                    <div class="form-group col-lg-4">
                                      <label>Hand Cash</label>
@@ -143,7 +143,8 @@
                                     </div>
                                 </form>
                                 @else
-                                <strong>Coupon Applied</strong>
+                                <strong class="badge bg-success">Coupon Successfully Applied</strong>
+                                
                                 @endif
                             </div>
                         </div></br></br>
