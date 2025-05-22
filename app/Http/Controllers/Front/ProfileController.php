@@ -45,5 +45,11 @@ class ProfileController extends Controller
         }
     }
 
+    // My Order
+    public function MyOrder()
+    {
+        $orders=DB::table('orders')->where('user_id',Auth::id())->orderBy('id','DESC')->get();
+        return view('user.my_order',compact('orders'));
+    }
 
 }
