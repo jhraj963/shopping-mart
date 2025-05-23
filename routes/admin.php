@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\TicketController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -153,6 +154,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::delete('/delete/{id}', [PickupController::class, 'destroy'])->name('pickup.delete');
             Route::get('/edit/{id}', [PickupController::class, 'edit']);
             Route::post('/update', [PickupController::class, 'update'])->name('pickup.update');
+        });
+
+        //Ticket
+        Route::group(['prefix' => 'ticket'], function () {
+            Route::get('/', [TicketController::class, 'index'])->name('ticket.index');
+            // Route::post('/store', [TicketController::class, 'store'])->name('store.pickup');
+            // Route::delete('/delete/{id}', [TicketController::class, 'destroy'])->name('pickup.delete');
+            // Route::get('/edit/{id}', [TicketController::class, 'edit']);
+            // Route::post('/update', [TicketController::class, 'update'])->name('pickup.update');
         });
     });
 
