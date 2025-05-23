@@ -96,4 +96,12 @@ class ProfileController extends Controller
         return redirect()->route('open.ticket')->with('success', 'Ticket Inserted Successfully.');
     }
 
+    //Show Ticket
+    public function ShowTicket($id)
+    {
+        $ticket = DB::table('tickets')->where('id', $id)->first();
+
+        return view('user.show_ticket', compact('ticket'));
+    }
+
 }

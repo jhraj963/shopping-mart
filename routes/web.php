@@ -76,6 +76,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     Route::get('/open/ticket', [ProfileController::class, 'Ticket'])->name('open.ticket');
     Route::get('/new/ticket', [ProfileController::class, 'NewTicket'])->name('new.ticket');
     Route::post('/store/ticket', [ProfileController::class, 'StoreTicket'])->name('store.ticket');
+    Route::get('/show/ticket/{id}', [ProfileController::class, 'ShowTicket'])->name('show.ticket');
 
     // Customer Change Password
     Route::post('/home/password/update', [ProfileController::class, 'PasswordChange'])->name('customer.password.change');
