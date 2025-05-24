@@ -104,4 +104,32 @@ class ProfileController extends Controller
         return view('user.show_ticket', compact('ticket'));
     }
 
+
+    // Reply Ticket
+    public function ReplyTicket(Request $request)
+    {
+        $validated = $request->validate([
+            'message' => 'required',
+        ]);
+
+
+        $data = array();
+        $data['message'] = $request->message;
+        $data['ticket_id'] = $request->ticket_id;
+        $data['user_id'] = Auth::id();
+        $data['reply_date'] = date('Y-m-d');
+
+        if ($request->image) {
+            $photo = $request->image;
+            $photoname = uniqid() . '.' . $photo->getClientOriginalExtension();
+            // $photo->move('files/ticket/', $photoname); //without image intervention
+            Image::make($photo)->resize(600, 360)->save('files/ticket/' . $photoname); //Image Intervention
+            $data['image'] = 'files/ticket/' . $photoname;
+        }
+
+        DB::table('replies')->insert($data);
+        return redirect()->back()->with('success', 'Replied Done.');
+    }
+    
+
 }

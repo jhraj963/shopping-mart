@@ -24,47 +24,41 @@
                     </div>
                 </div>
 
+
+                {{--  All Replies  --}}
+                @php
+                    $replies=DB::table('replies')->where('ticket_id',$ticket->id)->orderBy('id','DESC')->get();
+                @endphp
                 <div class="card p-2 mt-2">
                     <strong>All Reply Message.</strong><br>
                     <div class="card-body" style="height: 450px; overflow-y: scroll;">
-                    {{--  @isset($replies)
-                       @foreach($replies as $row)  --}}
-                        <div class="card">
-                          <div class="card-header  ">
-                           <i class="fa fa-user">{{ Auth::user()->name }}</i>
-                          </div>
-                          <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                              <p>Akljlkjlk</p>
-                              <footer class="blockquote-footer"></footer>
-                            </blockquote>
-                          </div>
-                        </div>
-
-                        <div class="card mt-1 ml-4">
-                          <div class="card-header  ">
-                            <span style="float:right;"><i class="fa fa-user">Admin</i></span>
-                          </div>
-                          <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                              <p>Akljlkjlk</p>
-                              <footer class="blockquote-footer"></footer>
-                            </blockquote>
-                          </div>
-                        </div>
-                      {{--  @endforeach
-                    @endisset  --}}
+                        @isset($replies)	
+                        @foreach($replies as $row)
+                         <div class="card mt-1 @if($row->user_id==0) ml-4 @endif">
+                           <div class="card-header @if($row->user_id==0) bg-info @else bg-danger @endif ">
+                            <i class="fa fa-user"></i> @if($row->user_id==0) Admin @else {{ Auth::user()->name }}@endif
+                           </div>
+                           <div class="card-body">
+                             <blockquote class="blockquote mb-0">
+                               <p>{{ $row->message }}</p>
+                               <footer class="blockquote-footer">{{ date('d F Y'),strtotime($row->reply_date) }}</footer>
+                             </blockquote>
+                           </div>
+                         </div>
+                       @endforeach	
+                     @endisset
                     </div>
                 </div>
 
                 <div class="card-body">
                    <h4>Reply Message...</h4><br>
                    <div>
-                   	  <form action="{{ route('store.ticket') }}" method="post" enctype="multipart/form-data">
+                   	  <form action="{{ route('reply.ticket') }}" method="post" enctype="multipart/form-data">
                         @csrf
                    	    <div class="form-group">
                    	      <label for="exampleInputPassword1">Message</label>
                    	      <textarea class="form-control" name="message" required=""></textarea>
+                        <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
                    	    </div>
                    	    <div>
                    	    	<label for="exampleInputPassword1">Image</label>

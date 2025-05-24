@@ -159,8 +159,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         //Ticket
         Route::group(['prefix' => 'ticket'], function () {
             Route::get('/', [TicketController::class, 'index'])->name('ticket.index');
-            // Route::post('/store', [TicketController::class, 'store'])->name('store.pickup');
-            // Route::delete('/delete/{id}', [TicketController::class, 'destroy'])->name('pickup.delete');
+            Route::get('/ticket/show/{id}', [TicketController::class, 'show'])->name('admin.ticket.show');
+            Route::post('/ticket/reply', [TicketController::class, 'ReplyTicket'])->name('admin.store.reply');
+            Route::get('/ticket/close/{id}', [TicketController::class, 'CloseTicket'])->name('admin.close.ticket');
+            Route::delete('/delete/{id}', [TicketController::class, 'destroy'])->name('admin.ticket.delete');
             // Route::get('/edit/{id}', [TicketController::class, 'edit']);
             // Route::post('/update', [TicketController::class, 'update'])->name('pickup.update');
         });

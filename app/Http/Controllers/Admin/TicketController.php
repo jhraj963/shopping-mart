@@ -81,8 +81,8 @@ class TicketController extends Controller
 
                 ->addColumn('action', function ($row) {
                     $actionbtn = '
-                          <a href="" class="btn btn-info btn-sm  edit">Show <i class="fas fa-eye"></i></a>
-                          <a href="' . route('product.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
+                          <a href="'.route('admin.ticket.show', [$row->id]).'" class="btn btn-info btn-sm  edit">Show <i class="fas fa-eye"></i></a>
+                          <a href="'.route('admin.ticket.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete_ticket">Delete <i class="fa-solid fa-delete-left"></i></a>';
 
                     return $actionbtn;
                 })
@@ -93,4 +93,58 @@ class TicketController extends Controller
 
         return view('admin.ticket.index');
     }
+
+    //Show Ticket
+    public function show($id)
+    {
+        $ticket=DB::table('tickets')->leftJoin('users', 'tickets.user_id', 'users.id')->select('tickets.*', 'users.name')->where('tickets.id',$id)->first();
+
+        return view('admin.ticket.view_ticket',compact('ticket'));
+    }
+
+    // Reply Ticket
+    public function ReplyTicket(Request $request)
+    {
+        $validated = $request->validate([
+            'message' => 'required',
+        ]);
+
+
+        $data = array();
+        $data['message'] = $request->message;
+        $data['ticket_id'] = $request->ticket_id;
+        $data['user_id'] = 0;
+        $data['reply_date'] = date('Y-m-d');
+
+        if ($request->image) {
+            $photo = $request->image;
+            $photoname = uniqid() . '.' . $photo->getClientOriginalExtension();
+            // $photo->move('files/ticket/', $photoname); //without image intervention
+            Image::make($photo)->resize(600, 360)->save('files/ticket/' . $photoname); //Image Intervention
+            $data['image'] = 'files/ticket/' . $photoname;
+        }
+
+        DB::table('replies')->insert($data);
+        DB::table('tickets')->where('id',$request->ticket_id)->update(['status'=>1]);
+
+        return redirect()->back()->with('success', 'Replied Done.');
+    }
+
+    //Close Ticket
+    public function CloseTicket($id)
+    {
+        DB::table('tickets')->where('id', $id)->update(['status'=>2]);
+
+        return redirect()->route('ticket.index')->with('success', 'Ticket Closed.');
+    }
+
+
+    // Destroy Ticket
+
+    public function destroy($id)
+    {
+        DB::table('tickets')->where('id',$id)->delete();
+        return response()->json('Ticket deleted!');
+    }
+
 }
