@@ -59,6 +59,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     //Order
     Route::post('/order/place', [CheckoutController::class, 'OrderPlace'])->name('order.place');
 
+    //Order Tracking
+    Route::get('/order/tracking', [IndexController::class, 'OrderTracking'])->name('order.tracking');
+    Route::post('/order/check', [IndexController::class, 'CheckOrder'])->name('check.order');
+
     //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 

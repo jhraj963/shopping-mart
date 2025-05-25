@@ -121,4 +121,23 @@ class IndexController extends Controller
     }
 
 
+    // Order Tracking
+    public function OrderTracking()
+    {
+        return view('frontend.order_tracking');
+    }
+
+    // Check Order
+    public function CheckOrder(Request $request)
+    {
+        $check=DB::table('orders')->where('order_id',$request->order_id)->first();
+        if($check){
+            $order = DB::table('orders')->where('order_id', $request->order_id)->first();
+            $order_details = DB::table('order_details')->where('order_id', $order->id)->get();
+
+            return view('frontend.order_details',compact('order', 'order_details'));
+        }else{
+            return redirect()->back()->with('error', 'No Order Found');
+        }
+    }
 }

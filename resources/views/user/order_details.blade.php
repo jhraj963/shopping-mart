@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <h4>Orders Details</h4>
                     <div>
-                        <table class="table">
+                        <table class="table table-success">
                             <thead>
                                 <tr>
                                 <th scope="col">SL</th>
