@@ -221,7 +221,7 @@
               </li>
             </li>
             <li class="nav-item">
-              <a href="{{ route('brand.index') }}" class="nav-link">
+              <a href="{{ route('payment.gateway') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Payment Gateway</p>
               </a>

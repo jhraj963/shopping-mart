@@ -13,7 +13,7 @@ class SettingController extends Controller
         $this->middleware('auth');
     }
 
-    //seo page show 
+    //seo page show
 
     public function seo()
     {
@@ -102,7 +102,7 @@ class SettingController extends Controller
 
                 $data['logo'] = 'files/setting/' . $logoname;
             }else{
-                $data['logo'] = $request->old_logo;      
+                $data['logo'] = $request->old_logo;
             }
 
         //favicon
@@ -113,13 +113,60 @@ class SettingController extends Controller
 
                 $data['favicon'] = 'files/setting/' . $faviconname;
             }else{
-                $data['favicon'] = $request->old_favicon;      
+                $data['favicon'] = $request->old_favicon;
             }
 
             DB::table('settings')->where('id', $id)->update($data);
 
         return redirect()->back()->with('success', 'Website Setting Updated');
 
+    }
+
+
+    // Payment Gateway
+    public function PaymentGateway()
+    {
+        $aamarpay=DB::table('payment_gateway_bd')->first();
+        $surjopay=DB::table('payment_gateway_bd')->skip(1)->first();
+        $ssl=DB::table('payment_gateway_bd')->skip(2)->first();
+
+        return view('admin.bdpayment_gateway.edit',compact('aamarpay','surjopay','ssl'));
+    }
+
+    // AamarPay Update
+
+    public function AamarpayUpdate(Request $request)
+    {
+        $data=array();
+        $data['store_id']=$request->store_id;
+        $data['signature_key']=$request->signature_key;
+        $data['status']=$request->status;
+        DB::table('payment_gateway_bd')->where('id',$request->id)->update($data);
+        return redirect()->back()->with('success', 'AamarPay Payment Gateway Updated');
+    }
+
+    // Surjopay Update
+
+    public function SurjopayUpdate(Request $request)
+    {
+        $data=array();
+        $data['store_id']=$request->store_id;
+        $data['signature_key']=$request->signature_key;
+        $data['status']=$request->status;
+        DB::table('payment_gateway_bd')->where('id',$request->id)->update($data);
+        return redirect()->back()->with('success', 'Surjopay Payment Gateway Updated');
+    }
+
+    // SSLCOMMERZ Update
+
+    public function SslUpdate(Request $request)
+    {
+        $data=array();
+        $data['store_id']=$request->store_id;
+        $data['signature_key']=$request->signature_key;
+        $data['status']=$request->status;
+        DB::table('payment_gateway_bd')->where('id',$request->id)->update($data);
+        return redirect()->back()->with('success', 'SSLCOMMERZ Payment Gateway Updated');
     }
 
 }

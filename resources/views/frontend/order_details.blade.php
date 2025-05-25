@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        {{--  <img class="align-self-center img-fluid" src="https://i.imgur.com/bOcHdBa.jpg" width="180 " height="180">  --}}
+
         <div class="row px-3">
             @php
             $status = $order->status;
