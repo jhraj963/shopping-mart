@@ -130,6 +130,16 @@ class ProfileController extends Controller
         DB::table('replies')->insert($data);
         return redirect()->back()->with('success', 'Replied Done.');
     }
+
+    // Customer Order
+
+    public function ViewOrder($id)
+    {
+        $order=DB::table('orders')->where('id',$id)->first();
+        $order_details=DB::table('order_details')->where('order_id',$id)->get();
+
+        return view('user.order_details',compact('order','order_details'));
+    }
     
 
 }

@@ -69,8 +69,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     // Customer Profile Setting
     Route::get('/home/setting', [ProfileController::class, 'CustomerSetting'])->name('customer.setting');
 
-    // Customer Profile Setting
+    // Customer Order
     Route::get('/my/order', [ProfileController::class, 'MyOrder'])->name('my.order');
+    Route::get('/view/order/{id}', [ProfileController::class, 'ViewOrder'])->name('view.order');
 
     // Open Ticket
     Route::get('/open/ticket', [ProfileController::class, 'Ticket'])->name('open.ticket');
