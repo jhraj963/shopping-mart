@@ -63,6 +63,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     Route::get('/order/tracking', [IndexController::class, 'OrderTracking'])->name('order.tracking');
     Route::post('/order/check', [IndexController::class, 'CheckOrder'])->name('check.order');
 
+    // // AamarPay Payment Gateway
+    // Route::get('payment',[CheckoutController::class,'payment'])->name('payment');
+    Route::post('success',[CheckoutController::class,'success'])->name('success');
+    Route::post('fail',[CheckoutController::class,'fail'])->name('fail');
+    Route::get('cancel',[CheckoutController::class,'cancel'])->name('cancel');
+    // Route::post('success', [CheckoutController::class, 'success'])->name('success');
+    // Route::post('fail', [CheckoutController::class, 'fail'])->name('fail');
+    // Route::get('cancel', [CheckoutController::class, 'cancel'])->name('cancel');
+
     //Product Review
     Route::post('/store/review', [ReviewController::class, 'store'])->name('store.review');
 

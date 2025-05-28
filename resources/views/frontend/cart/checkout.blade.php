@@ -60,7 +60,7 @@
                                    </div>
                                    <div class="form-group col-lg-4">
                                      <label>Bkash/Rocket/Nagad/Upay </label>
-                                     <input type="radio"  name="payment_type" checked="" value="SSL Commerze" >
+                                     <input type="radio"  name="payment_type" checked="" value="AamarPay" >
                                    </div>
                                    <div class="form-group col-lg-4">
                                      <label>Hand Cash</label>
