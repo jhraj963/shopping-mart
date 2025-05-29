@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,7 +70,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::post('/update', [CouponController::class, 'update'])->name('coupon.update');
     });
 
-    //Campaing Route List
+    //Campaign Route List
 
     Route::group(['prefix' => 'campaign'], function () {
         Route::get('/', [CampaignController::class, 'index'])->name('campaign.index');
@@ -77,6 +78,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/delete/{id}', [CampaignController::class, 'destroy'])->name('campaign.delete');
         Route::get('/edit/{id}', [CampaignController::class, 'edit']);
         Route::post('/update', [CampaignController::class, 'update'])->name('campaign.update');
+    });
+
+    //Order Route List
+
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/', [OrderController::class, 'index'])->name('admin.order.index');
+        // Route::post('/store', [OrderController::class, 'store'])->name('campaign.store');
+        // Route::get('/delete/{id}', [OrderController::class, 'destroy'])->name('campaign.delete');
+        // Route::get('/edit/{id}', [OrderController::class, 'edit']);
+        // Route::post('/update', [OrderController::class, 'update'])->name('campaign.update');
     });
 
     //Warehouse Route List
