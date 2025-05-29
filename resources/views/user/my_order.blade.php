@@ -30,7 +30,7 @@
                            @foreach($orders as $row)
                             <tr>
                               <th scope="row">{{ $row->order_id }}</th>
-                              <td>{{ date('d F , Y') ,strtotime($row->order_id)  }}</td>
+                              <td>{{ $row->date }}</td>
                               <td>{{ $row->total }} {{ $setting->currency }}</td>
                               <td>{{ $row->payment_type }}</td>
                               <td>
@@ -41,18 +41,18 @@
                                @elseif($row->status==2)
                                   <span class="badge badge-primary">Order Shipped</span>
                                @elseif($row->status==3)
-                                  <span class="badge badge-success">Order Done</span> 
+                                  <span class="badge badge-success">Order Done</span>
                                @elseif($row->status==4)
-                                  <span class="badge badge-warning">Order Return</span>   
-                               @elseif($row->status==5)  
+                                  <span class="badge badge-warning">Order Return</span>
+                               @elseif($row->status==5)
                                   <span class="badge badge-danger">Order Cancel</span>
-                               @endif          
+                               @endif
                              </td>
                              <td>
                             	<a href="{{ route('view.order',$row->id) }}" class="btn btn-sm btn-info" title="view order"><i class="fa fa-eye"></i></a>
                             </td>
                             </tr>
-                           @endforeach 
+                           @endforeach
                           </tbody>
                         </table>
                     </div>

@@ -71,7 +71,7 @@ class CampaignController extends Controller
         $slug = Str::slug($request->title, '-');
         $photoname = $slug . '.' . $photo->getClientOriginalExtension();
         // $photo->move('files/campaign/', $photoname); //without image intervention
-        Image::make($photo)->resize(468, 90)->save('files/campaign/'. $photoname); //Image Intervention
+        Image::make($photo)->resize(858, 476)->save('files/campaign/'. $photoname); //Image Intervention
         $data['image'] = 'files/campaign/' . $photoname;
 
 
@@ -107,7 +107,7 @@ class CampaignController extends Controller
             }
             $photo = $request->image;
             $photoname = $slug . '.' . $photo->getClientOriginalExtension();
-            Image::make($photo)->resize(468, 90)->save('files/campaign/' . $photoname);
+            Image::make($photo)->resize(858, 476)->save('files/campaign/' . $photoname);
             $data['image'] = 'files/campaign/' . $photoname;
 
             DB::table('campaigns')->where('id', $request->id)->update($data);

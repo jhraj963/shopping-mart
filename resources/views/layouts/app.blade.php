@@ -8,10 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="OneTech shop project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/styles/bootstrap4/bootstrap.min.css') }}">
@@ -50,8 +50,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>+88 01572 378254</div>
-                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#234542505750424f465063444e424a4f0d404c4e"><span class="__cf_email__" data-cfemail="34525547404755585147745359555d581a575b59">shoppingmart@gmail.com</span></a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>{{ $setting->phone_two }}</div>
+                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="#"><span class="__cf_email__" data-cfemail="34525547404755585147745359555d581a575b59">{{ $setting->main_email }}</span></a></div>
 
 						<div class="top_bar_content ml-auto">
 							@if(Auth::check())
@@ -108,7 +108,6 @@
 
 									</li>
 									<li>
-
 										<a href="{{route('register')}}">Register</a>
 									</li>
 								</ul>
@@ -130,7 +129,9 @@
 					<!-- Logo -->
 					<div class="col-lg-3 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="{{ url('/') }}">Shopping Mart</a></div>
+							<div class="logo">
+                                    <a href="{{ url('/') }}" class="logo">Shopping Mart</a>
+                            </div>
 						</div>
 					</div>
 
@@ -216,13 +217,17 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">Shopping Mart</a></div>
+							<div class="logo">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ $setting->logo }}" class="rounded-circle me-2" height="50" width="50" alt="Logo">
+                                    <a href="#" class="fw-bold fs-5 text-decoration-none logo"><small>Shopping Mart</small></a>
+                                </div>
+                            </div>
 						</div>
 						<div class="footer_title">Got Question? Call Us 24/7</div>
-						<div class="footer_phone">+88 01572 378254</div>
+						<div class="footer_phone">{{ $setting->phone_one }}</div>
 						<div class="footer_contact_text">
-							<p>17 Bordighir Phar, Hathazari Road</p>
-							<p>Chattogram, Bangladesh</p>
+							<p> {{ $setting->address }}</p>
 						</div>
 						<div class="footer_social">
 							<ul>

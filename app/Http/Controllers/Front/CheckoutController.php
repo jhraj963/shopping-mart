@@ -123,47 +123,47 @@ class CheckoutController extends Controller
             return redirect()->to('/')->with('success', 'Your Oder Successfully Placed!');
 
             // AamarPay Gateway
-             } elseif($request->payment_type == "AamarPay"){
+        } elseif ($request->payment_type == "AamarPay") {
 
 
-                $aamarpay = DB::table('payment_gateway_bd')->first();
-                if ($aamarpay->store_id == NULL) {
-                    return redirect()->back()->with('error', 'Please setting your payment gateway!');
-                }
+            $aamarpay = DB::table('payment_gateway_bd')->first();
+            if ($aamarpay->store_id == NULL) {
+                return redirect()->back()->with('error', 'Please setting your payment gateway!');
+            }
 
-                if ($aamarpay->status == 1) {
-                    $url='https://secure.aamarpay.com/jsonpost.php'; // live url https://secure.aamarpay.com/request.php
-                } else {
-                    $url='https://sandbox.aamarpay.com/jsonpost.php';
-                }
+            if ($aamarpay->status == 1) {
+                $url = 'https://secure.aamarpay.com/jsonpost.php'; // live url https://secure.aamarpay.com/request.php
+            } else {
+                $url = 'https://sandbox.aamarpay.com/jsonpost.php';
+            }
 
-                $tran_id = "test" . rand(1111111, 9999999); //unique transection id for every transection
+            $tran_id = "test" . rand(1111111, 9999999); //unique transection id for every transection
 
-                $currency = "BDT"; //aamarPay support Two type of currency USD & BDT
+            $currency = "BDT"; //aamarPay support Two type of currency USD & BDT
 
-                $amount = "10";   //10 taka is the minimum amount for show card option in aamarPay payment gateway
+            $amount = floatval(preg_replace('/[^\d.]/', '', Cart::subtotal()));   //10 taka is the minimum amount for show card option in aamarPay payment gateway
 
             //For live Store Id & Signature Key please mail to support@aamarpay.com
-                $store_id = $aamarpay->store_id;
+            $store_id = $aamarpay->store_id;
 
-                $signature_key = $aamarpay->signature_key;
+            $signature_key = $aamarpay->signature_key;
             // $signature_key = "dbb74894e82415a2f7ff0ec3a97e4183";
 
-                // $url = "https://​sandbox​.aamarpay.com/jsonpost.php"; // for Live Transection use "https://secure.aamarpay.com/jsonpost.php"
-                // $url = "https://secure.aamarpay.com/jsonpost.php";
+            // $url = "https://​sandbox​.aamarpay.com/jsonpost.php"; // for Live Transection use "https://secure.aamarpay.com/jsonpost.php"
+            // $url = "https://secure.aamarpay.com/jsonpost.php";
 
-                $curl = curl_init();
+            $curl = curl_init();
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => $url,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'POST',
-                    CURLOPT_POSTFIELDS => '{
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
                 "store_id": "' . $store_id . '",
                 "tran_id": "' . $tran_id . '",
                 "success_url": "' . route('success') . '",
@@ -173,80 +173,101 @@ class CheckoutController extends Controller
                 "currency": "' . $currency . '",
                 "signature_key": "' . $signature_key . '",
                 "desc": "Merchant Registration Payment",
-                "cus_name": "Name",
-                "cus_email": "payer@merchantcusomter.com",
-                "cus_add1": "House B-158 Road 22",
+                "cus_name": "' . $request->c_name . '",
+                "cus_email": "'. $request->c_email . '",
+                "cus_add1":  "' . $request->c_address . '",
                 "cus_add2": "Mohakhali DOHS",
-                "cus_city": "Dhaka",
+                "cus_city":  "' . $request->c_city . '",
                 "cus_state": "Dhaka",
-                "cus_postcode": "1206",
-                "cus_country": "Bangladesh",
-                "cus_phone": "+8801704",
+                "cus_postcode": "' . $request->c_zipcode . '",
+                "cus_country": "' . $request->c_country . '",
+                "cus_phone": "' . $request->c_phone . '",
                 "type": "json"
             }',
-                    CURLOPT_HTTPHEADER => array(
-                        'Content-Type: application/json'
-                    ),
-                ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            ));
 
-                $response = curl_exec($curl);
+            $response = curl_exec($curl);
 
-                curl_close($curl);
+            curl_close($curl);
             // dd($response);
             // dd([
             //     'store_id' => $store_id,
             //     'signature_key' => $signature_key
             // ]);
-                $responseObj = json_decode($response);
+            $responseObj = json_decode($response);
 
-                if (isset($responseObj->payment_url) && !empty($responseObj->payment_url)) {
+            if (isset($responseObj->payment_url) && !empty($responseObj->payment_url)) {
 
-                    $paymentUrl = $responseObj->payment_url;
-                    // dd($paymentUrl);
-                    return redirect()->away($paymentUrl);
-                } else {
+                $paymentUrl = $responseObj->payment_url;
+                // dd($paymentUrl);
+                return redirect()->away($paymentUrl);
+            } else {
                 echo $response;
                 // dd($response);
-                }
             }
+        }
     }
 
     //Other Method
+
     public function success(Request $request)
     {
-        $request_id = $request->mer_txnid;
-
-        $aamarpay = DB::table('payment_gateway_bd')->first();
-        $store_id = $aamarpay->store_id;
-        $signature_key = $aamarpay->signature_key;
-
-        if ($aamarpay->status == 1) {
-            $url = "http://secure.aamarpay.com/api/v1/trxcheck/request.php?request_id=$request_id&store_id=$store_id&signature_key=$signature_key&type=json";
+        $order = array();
+        $order['user_id'] = Auth::id();
+        $order['c_name'] = $request->cus_name;
+        $order['c_phone'] = $request->opt_c;
+        $order['c_country'] = $request->opt_a;
+        $order['c_address'] = $request->opt_d;
+        $order['c_email'] = $request->cus_email;
+        $order['c_city'] = $request->opt_b;
+        if (Session::has('coupon')) {
+            $order['subtotal'] = Cart::subtotal();
+            $order['coupon_code'] = Session::get('coupon')['name'];
+            $order['coupon_discount'] = Session::get('coupon')['discount'];
+            $order['after_dicount'] = Session::get('coupon')['after_discount'];
         } else {
-            $url = "http://sandbox.aamarpay.com/api/v1/trxcheck/request.php?request_id=$request_id&store_id=$store_id&signature_key=$signature_key&type=json";
+            $order['subtotal'] = Cart::subtotal();
+        }
+        $order['total'] = Cart::subtotal();
+        $order['payment_type'] = 'Aamarpay';
+        $order['tax'] = 0;
+        $order['shipping_charge'] = 0;
+        $order['order_id'] = rand(10000, 900000);
+        $order['status'] = 1;
+        $order['date'] = date('d-m-Y');
+        $order['month'] = date('F');
+        $order['year'] = date('Y');
+
+        $order_id = DB::table('orders')->insertGetId($order);
+
+
+        Mail::to(Auth::user()->email)->send(new InvoiceMail($order));
+
+        //order details
+        $content = Cart::content();
+
+        $details = array();
+        foreach ($content as $row) {
+            $details['order_id'] = $order_id;
+            $details['product_id'] = $row->id;
+            $details['product_name'] = $row->name;
+            $details['color'] = $row->options->color;
+            $details['size'] = $row->options->size;
+            $details['quantity'] = $row->qty;
+            $details['single_price'] = $row->price;
+            $details['subtotal_price'] = $row->price * $row->qty;
+            DB::table('order_details')->insert($details);
         }
 
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        // dd($response);
+        Cart::destroy();
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+        return redirect()->to('home')->with('success', 'Your Oder Successfully Placed!');
     }
-
-
-
 
     public function fail(Request $request)
     {
