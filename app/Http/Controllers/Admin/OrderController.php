@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use DataTables;
 use Auth;
+use Mail;
+use App\Mail\ReceivedMail;
 
 class OrderController extends Controller
 {
@@ -82,7 +84,7 @@ class OrderController extends Controller
                     }
                 })
                 ->addColumn('action', function ($row) {
-                    $actionbtn = '<a href="' . route('product.edit', [$row->id]) . '" class="btn btn-primary btn-sm  edit">Edit <i class="fa-solid fa-pen-to-square"></i></a>
+                    $actionbtn = '<a href="#" data-id="' . $row->id . '" class="btn btn-primary btn-sm  edit" data-toggle="modal" data-target="#editModal">Edit <i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="" class="btn btn-info btn-sm  edit">Show <i class="fas fa-eye"></i></a>
                             <a href="' . route('product.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
 
@@ -95,4 +97,33 @@ class OrderController extends Controller
 
         return view('admin.order.index');
     }
+
+    //Order Edit
+    public function edit($id)
+    {
+        $order=DB::table('orders')->where('id',$id)->first();
+        return view('admin.order.edit',compact('order'));
+    }
+
+
+    // Update Order Status
+
+    public function update(Request $request)
+    {
+        $data=array();
+        $data['c_name']=$request->c_name;
+        $data['c_email']=$request->c_email;
+        $data['c_address']=$request->c_address;
+        $data['c_phone']=$request->c_phone;
+        $data['status']=$request->status;
+
+        if($request->status=='1'){
+            Mail::to($request->c_email)->send(new ReceivedMail($data));
+        }
+
+        DB::table('orders')->where('id',$request->id)->update($data);
+
+        return response()->json('Successfully Changed Status');
+    }
+
 }

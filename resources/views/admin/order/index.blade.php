@@ -92,6 +92,22 @@
     </div>
 
 
+{{-- edit modal --}}
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Pickup Point</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       <div id="modal_body">
+
+       </div>
+      </div>
+    </div>
+  </div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -129,16 +145,15 @@ $(function products(){
 	});
 
 
-    // feature deactive
-	$('body').on('click','.deactive_featurd', function(){
+    //order edit
+    $('body').on('click','.edit', function(){
 	    var id=$(this).data('id');
-		var url = "{{ url('product/not-featured') }}/"+id;
+		var url = "{{ url('order/admin/edit') }}/"+id;
 		$.ajax({
 			url:url,
 			type:'get',
-			success:function(data){
-	        toastr.success(data);
-	        table.ajax.reload();
+			success:function(data){  
+	         $("#modal_body").html(data);
 	      }
 	  });
     });

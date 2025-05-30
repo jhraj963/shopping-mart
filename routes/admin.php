@@ -86,8 +86,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/', [OrderController::class, 'index'])->name('admin.order.index');
         // Route::post('/store', [OrderController::class, 'store'])->name('campaign.store');
         // Route::get('/delete/{id}', [OrderController::class, 'destroy'])->name('campaign.delete');
-        // Route::get('/edit/{id}', [OrderController::class, 'edit']);
-        // Route::post('/update', [OrderController::class, 'update'])->name('campaign.update');
+        Route::get('/admin/edit/{id}', [OrderController::class, 'edit']);
+        Route::post('/update/order/status', [OrderController::class, 'update'])->name('update.order.status');
     });
 
     //Warehouse Route List
