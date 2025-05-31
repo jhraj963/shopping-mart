@@ -71,8 +71,9 @@
                     <th>E-mail</th>
                     <th>Subtotal ({{ $setting->currency }})</th>
                     <th>Total ({{ $setting->currency }})</th>
-                    <th>Payment Method</th>
-                    <th>Order Date</th>
+                    <th> Method</th>
+                    <th>Order No</th>
+                    <th> Date</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -109,6 +110,23 @@
     </div>
   </div>
 
+{{-- view modal --}}
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       <div id="view_modal_body">
+          
+       </div> 
+      </div>
+    </div>
+  </div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -135,6 +153,7 @@ $(function products(){
 				{data:'subtotal',name:'subtotal'},
 				{data:'total',name:'total'},
 				{data:'payment_type',name:'payment_type'},
+				{data:'order_id',name:'order_id'},
 				{data:'date',name:'date'},
 				{data:'status',name:'status'},
 
@@ -154,6 +173,20 @@ $(function products(){
 			type:'get',
 			success:function(data){  
 	         $("#modal_body").html(data);
+	      }
+	  });
+    });
+
+    //order view
+
+    $('body').on('click','.view', function(){
+	    var id=$(this).data('id');
+		var url = "{{ url('/order/view/admin') }}/"+id;
+		$.ajax({
+			url:url,
+			type:'get',
+			success:function(data){  
+	         $("#view_modal_body").html(data);
 	      }
 	  });
     });

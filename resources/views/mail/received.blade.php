@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Your Current Order Status is: {{ $order['status'] }}</h1><br>
+    <h1>Your Current Order Status is Received</h1><br>
 </body>
 </html>

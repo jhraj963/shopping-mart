@@ -84,8 +84,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
 
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('admin.order.index');
-        // Route::post('/store', [OrderController::class, 'store'])->name('campaign.store');
-        // Route::get('/delete/{id}', [OrderController::class, 'destroy'])->name('campaign.delete');
+        Route::get('/view/admin/{id}', [OrderController::class, 'view']);
+        Route::get('/delete/{id}', [OrderController::class, 'destroy'])->name('order.delete');
         Route::get('/admin/edit/{id}', [OrderController::class, 'edit']);
         Route::post('/update/order/status', [OrderController::class, 'update'])->name('update.order.status');
     });

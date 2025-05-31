@@ -84,9 +84,10 @@ class OrderController extends Controller
                     }
                 })
                 ->addColumn('action', function ($row) {
-                    $actionbtn = '<a href="#" data-id="' . $row->id . '" class="btn btn-primary btn-sm  edit" data-toggle="modal" data-target="#editModal">Edit <i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="" class="btn btn-info btn-sm  edit">Show <i class="fas fa-eye"></i></a>
-                            <a href="' . route('product.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
+                    $actionbtn = '
+                            <a href="#" data-id="' . $row->id . '" class="btn btn-primary btn-sm  edit" data-toggle="modal" data-target="#editModal"><i class="fa-solid fa-pen-to-square"></i></a>
+                             <a href="#" data-id="' . $row->id . '" class="btn btn-primary btn-sm view" data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye"></i></a>
+                            <a href="' . route('order.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete"> <i class="fa-solid fa-delete-left"></i></a>';
 
                     return $actionbtn;
                 })
@@ -124,6 +125,26 @@ class OrderController extends Controller
         DB::table('orders')->where('id',$request->id)->update($data);
 
         return response()->json('Successfully Changed Status');
+    }
+
+    // View Order
+
+    public function view($id)
+    {
+        $order = DB::table('orders')->where('id', $id)->first();
+        $order_details = DB::table('order_details')->where('order_id', $id)->get();
+        return view('admin.order.order_details', compact('order', 'order_details'));
+    }
+
+
+    // Delete Order
+
+    public function destroy($id)
+    {
+        $order = DB::table('orders')->where('id', $id)->delete();
+        $order_details = DB::table('order_details')->where('order_id', $id)->delete();
+
+        return redirect()->back()->with('warning', 'Order Successfully deleted');
     }
 
 }
