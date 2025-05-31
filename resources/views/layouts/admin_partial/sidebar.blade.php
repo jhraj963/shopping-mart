@@ -162,6 +162,34 @@
           </li>
 
 
+            {{--  Blogs  --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Blogs
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.blog.category') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.order.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Blog</p>
+                </a>
+              </li>
+            </li>
+            </ul>
+          </li>
+
+
             {{--  Pickup Point  --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -199,6 +227,28 @@
                 <a href="{{ route('ticket.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Ticket</p>
+                </a>
+              </li>
+            </li>
+            </ul>
+          </li>
+
+
+            {{--  Contact  --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Contact Message
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('ticket.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Message</p>
                 </a>
               </li>
             </li>

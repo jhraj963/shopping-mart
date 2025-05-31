@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\BlogController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,6 +39,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
         Route::get('/edit/{id}', [CategoryController::class, 'edit']);
         Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
+    });
+
+    //Blog Route List
+
+    Route::group(['prefix' => 'blog-category'], function () {
+        Route::get('/', [BlogController::class, 'index'])->name('admin.blog.category');
+        Route::post('/store', [BlogController::class, 'store'])->name('blog.category.store');
+        Route::get('/delete/{id}', [BlogController::class, 'destroy'])->name('blog.category.delete');
+        Route::get('/edit/{id}', [BlogController::class, 'edit']);
+        Route::post('/update', [BlogController::class, 'update'])->name('blog.category.update');
     });
 
     // Global Route
