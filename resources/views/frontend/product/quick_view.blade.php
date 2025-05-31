@@ -58,7 +58,7 @@
 
               	<br>
                  <div class="order_info d-flex flex-row">
-                    <form action="{{ route('add.to.cart.quickview') }}" method="post" id="add_cart_form">
+                    <form action="{{ route('add.to.cart.quickview') }}" method="POST" id="add_cart_form">
                       @csrf
                       {{-- cart add details --}}
                       <input type="hidden" name="id" value="{{$product->id}}">
@@ -147,3 +147,39 @@ $('.loader').ready(function() {
     });
   });
 </script>
+{{--  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#add_cart_form').on('submit', function(e){
+        e.preventDefault();
+  
+        $('.loading').removeClass('d-none');
+  
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = form.serialize();
+  
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: formData,
+          success: function(data){
+            toastr.success(data);
+            form[0].reset();
+            $('.loading').addClass('d-none');
+            cart(); 
+          },
+          error: function(xhr){
+            $('.loading').addClass('d-none');
+            if (xhr.status === 419) {
+              toastr.error("Session expired. Please refresh the page.");
+            } else if(xhr.responseJSON && xhr.responseJSON.message){
+              toastr.error(xhr.responseJSON.message);
+            } else {
+              toastr.error("Something went wrong!");
+            }
+          }
+        });
+      });
+    });
+  </script>  --}}
+  

@@ -103,6 +103,9 @@
                                                        </div>
                                                    </div>
                                                 </form>
+                                                <div class="form-group">
+                                                    <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-block">Login With Google</a>
+                                                </div>
                                             </div>
 										</ul>
 

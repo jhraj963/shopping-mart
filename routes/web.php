@@ -38,7 +38,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     Route::get('/product-quick-view/{id}', [IndexController::class, 'ProductQuickView']);
 
     //Add to Cart On Quick View
-    Route::post('/addtocart', [CartController::class, 'AddToCartQV'])->name('add.to.cart.quickview');
+    Route::POST('/addtocart', [CartController::class, 'AddToCartQV'])->name('add.to.cart.quickview');
     Route::get('/cartproduct/remove/{rowId}', [CartController::class, 'RemoveProduct']);
     Route::get('/cartproduct/updateqty/{rowId}/{qty}', [CartController::class, 'UpdateQty']);
     Route::get('/cartproduct/updatecolor/{rowId}/{color}', [CartController::class, 'UpdateColor']);
@@ -120,4 +120,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     // NewsLetter
     Route::post('/store/newsletter', [IndexController::class, 'StoreNewsletter'])->name('store.newsletter');
 
+    
+
 });
+
+//socialite (For Login With Google, FB & Others)
+Route::get('oauth/{driver}', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider'])->name('social.oauth');
+Route::get('oauth/{driver}/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback'])->name('social.callback');
