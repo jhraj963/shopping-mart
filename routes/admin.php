@@ -196,6 +196,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             // Route::get('/edit/{id}', [TicketController::class, 'edit']);
             // Route::post('/update', [TicketController::class, 'update'])->name('pickup.update');
         });
+
+        //Ticket
+        Route::group(['prefix' => 'report'], function () {
+            Route::get('/order', [OrderController::class, 'ReportIndex'])->name('order.report.index');
+            Route::get('/order/print', [OrderController::class, 'ReportOrderPrint'])->name('report.order.print');
+        });
     });
 
 });

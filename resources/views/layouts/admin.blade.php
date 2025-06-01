@@ -100,7 +100,7 @@
 
 {{--  before delete showing alert  --}}
 
-<script>  
+<script>
          $(document).on("click", "#delete", function(e){
              e.preventDefault();
              var link = $(this).attr("href");
@@ -214,6 +214,9 @@
 
 //Font Awesome CDN Link
 <script src="https://kit.fontawesome.com/d62daed63a.js" crossorigin="anonymous"></script>
+
+// For Print
+<script src="{{ asset('backend/plugins/printThis/printThis.js') }}"></script>
 
 </body>
 </html>
