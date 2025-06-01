@@ -45,7 +45,7 @@
               <p>
                 Category
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">4</span>
+                <span class="badge badge-info right">5</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -147,7 +147,7 @@
               <p>
                 Orders
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">2</span>
+                <span class="badge badge-info right">1</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -197,7 +197,7 @@
               <p>
                 Pickup Point
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">2</span>
+                <span class="badge badge-info right">1</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -219,7 +219,7 @@
               <p>
                 Ticket
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">2</span>
+                <span class="badge badge-info right">1</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -241,7 +241,7 @@
               <p>
                 Contact Message
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">2</span>
+                <span class="badge badge-info right">1</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -255,6 +255,54 @@
             </ul>
           </li>
 
+
+            {{--  Report  --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Report
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('ticket.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Order Report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('ticket.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer Report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('ticket.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Stock Report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('ticket.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('ticket.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ticket Report</p>
+                </a>
+              </li>
+            </li>
+            </ul>
+          </li>
+
+
+          
           {{--  Setting  --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -296,6 +344,34 @@
               <a href="{{ route('payment.gateway') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Payment Gateway</p>
+              </a>
+            </li>
+            </ul>
+          </li>
+
+
+
+          {{--  User Role  --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                User Role
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('payment.gateway') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Create New Role</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('payment.gateway') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Manage Role</p>
               </a>
             </li>
             </ul>

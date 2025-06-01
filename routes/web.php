@@ -120,7 +120,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
     // NewsLetter
     Route::post('/store/newsletter', [IndexController::class, 'StoreNewsletter'])->name('store.newsletter');
 
-    
+    // Contact
+    Route::get('/contact-us', [IndexController::class, 'Contact'])->name('contact');
+
+    // Blog
+    Route::get('/our-blog', [IndexController::class, 'Blog'])->name('blog');
+
+
 
 });
 

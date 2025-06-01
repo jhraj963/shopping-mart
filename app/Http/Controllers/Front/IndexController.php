@@ -142,4 +142,19 @@ class IndexController extends Controller
             return redirect()->back()->with('error', 'No Order Found');
         }
     }
+
+
+    // Contact Page
+
+    public function Contact()
+    {
+        return view('frontend.contact');
+    }
+
+    // Contact Page
+
+    public function Blog()
+    {
+        return view('frontend.blog');
+    }
 }

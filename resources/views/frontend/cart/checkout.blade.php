@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-group col-lg-6">
                               <label>Extra Phone</label>
-                              <input type="text" class="form-control" name="c_extra_phone" required="" >
+                              <input type="text" class="form-control" name="c_extra_phone">
                             </div>
                               <br>
                                    <div class="form-group col-lg-4">
