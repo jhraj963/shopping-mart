@@ -39,6 +39,7 @@
           </li>
 
           {{--  Category  --}}
+          @if(Auth::user()->category==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -82,8 +83,11 @@
               </li>
             </ul>
           </li>
+          @endif
+
 
           {{--  Product  --}}
+          @if(Auth::user()->product==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -110,9 +114,10 @@
               </li>
             </ul>
           </li>
-
+          @endif
 
             {{--  Offer  --}}
+        @if(Auth::user()->offer==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -138,9 +143,10 @@
             </li>
             </ul>
           </li>
-
+          @endif
 
             {{--  Orders  --}}
+        @if(Auth::user()->order==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -160,9 +166,10 @@
             </li>
             </ul>
           </li>
-
+          @endif
 
             {{--  Blogs  --}}
+            @if(Auth::user()->blog==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -188,9 +195,10 @@
             </li>
             </ul>
           </li>
-
+          @endif
 
             {{--  Pickup Point  --}}
+            @if(Auth::user()->pickup==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -210,9 +218,10 @@
             </li>
             </ul>
           </li>
-
+          @endif
 
             {{--  Ticket  --}}
+            @if(Auth::user()->ticket==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -232,9 +241,10 @@
             </li>
             </ul>
           </li>
-
+          @endif
 
             {{--  Contact  --}}
+            @if(Auth::user()->contact==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -254,9 +264,10 @@
             </li>
             </ul>
           </li>
-
+          @endif
 
             {{--  Report  --}}
+            @if(Auth::user()->report==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -300,10 +311,11 @@
             </li>
             </ul>
           </li>
+          @endif
 
 
-          
           {{--  Setting  --}}
+          @if(Auth::user()->setting==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -348,10 +360,11 @@
             </li>
             </ul>
           </li>
-
+          @endif
 
 
           {{--  User Role  --}}
+          @if(Auth::user()->userrole==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -363,20 +376,20 @@
             </a>
             <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('create.role') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Create New Role</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('manage.role') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Manage Role</p>
               </a>
             </li>
             </ul>
           </li>
-
+          @endif
 
           <li class="nav-header">Profile</li>
           <li class="nav-item">

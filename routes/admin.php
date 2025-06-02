@@ -202,6 +202,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/order', [OrderController::class, 'ReportIndex'])->name('order.report.index');
             Route::get('/order/print', [OrderController::class, 'ReportOrderPrint'])->name('report.order.print');
         });
+
+        // User Role
+        Route::group(['prefix' => 'role'], function () {
+            Route::get('/', 'RoleController@index')->name('manage.role');
+            Route::get('/create', 'RoleController@create')->name('create.role');
+            Route::post('/store', 'RoleController@store')->name('store.role');
+            Route::get('/delete/{id}', 'RoleController@destroy')->name('role.delete');
+            Route::get('/edit/{id}', 'RoleController@edit')->name('role.edit');
+            Route::post('/update', 'RoleController@update')->name('update.role');
+        });
     });
 
 });
