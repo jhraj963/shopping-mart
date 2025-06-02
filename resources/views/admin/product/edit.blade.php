@@ -46,11 +46,11 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-       <form action="{{ route('store.product') }}" method="post" enctype="multipart/form-data">
+       <form action="{{ route('update.product') }}" method="post" enctype="multipart/form-data">
         @csrf
        	<div class="row">
           <!-- left column -->
-          <div class="col-md-8">
+          <div class="col-lg-8">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -74,20 +74,22 @@
                       <select class="form-control" name="subcategory_id" id="subcategory_id">
                         <option disabled="" selected="">==choose category==</option>
                         @foreach($category as $row)
-                           @php 
+                           @php
                               $subcategory=DB::table('subcategories')->where('category_id',$row->id)->get();
                            @endphp
                            <option style="color:rgb(41, 207, 35);" disabled="">{{ $row->category_name }}</option>
                               @foreach($subcategory as $row)
-                                <option value="{{ $row->id }}"> 👉 {{ $row->subcategory_name }}</option>
+                                <option value="{{ $row->id }}" @if($row->id==$product->subcategory_id) selected @endif> 👉 {{ $row->subcategory_name }}</option>
                               @endforeach
-                        @endforeach 
+                        @endforeach
                       </select>
                     </div>
                     <div class="form-group col-lg-6">
                       <label for="exampleInputPassword1">Child category<span class="text-danger">*</span> </label>
                       <select class="form-control" name="childcategory_id" id="childcategory_id">
-                         
+                        @foreach ($childcategory as $child)
+                            <option value="{{ $child->id }}" @if($child->id==$product->childcategory_id) selected @endif>{{ $child->childcategory_name }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
@@ -96,15 +98,15 @@
                       <label for="exampleInputEmail1">Brand <span class="text-danger">*</span> </label>
                       <select class="form-control" name="brand_id">
                         @foreach($brand as $row)
-                          <option value="{{ $row->id }}">{{ $row->brand_name }}</option>
-                        @endforeach 
+                          <option value="{{ $row->id }}" @if($row->id==$product->brand_id) selected @endif>{{ $row->brand_name }}</option>
+                        @endforeach
                       </select>
                     </div>
                     <div class="form-group col-lg-6">
                       <label for="exampleInputPassword1">Pickup Point</label>
                       <select class="form-control" name="pickup_point_id">
                         @foreach($pickup_point as $row)
-                          <option value="{{ $row->id }}">{{ $row->pickup_point_name  }}</option>
+                          <option value="{{ $row->id }}"  @if($row->id==$product->pickup_point_id) selected @endif>{{ $row->pickup_point_name  }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -139,7 +141,7 @@
                       <select class="form-control" name="warehouse">
                         @foreach($warehouse as $row)
                          <option value="{{ $row->warehouse_name }}">{{ $row->warehouse_name }}</option>
-                        @endforeach 
+                        @endforeach
                       </select>
                     </div>
                     <div class="form-group col-lg-6">
@@ -180,24 +182,41 @@
            </div>
             <!-- /.card -->
           <!-- right column -->
-          <div class="col-md-4">
+          <div class="col-lg-4">
             <!-- Form Element sizes -->
             <div class="card card-primary">
               <div class="card-body">
                   <div class="form-group">
+                    <img src="{{asset('files/product/'.$product->thumbnail)}}" style="height: 50px; width:50px;">
                     <label for="exampleInputEmail1">Main Thumbnail <span class="text-danger">*</span> </label><br>
-                    <input type="file" name="thumbnail" required="" accept="image/*" class="dropify">
+                    <input type="file" name="thumbnail"  accept="image/*" class="dropify">
+                    <input type="hidden" name="old_thumbnail" value={{ $product->thumbnail }}>
                   </div><br>
-                  <div class="">  
+                  <div class="">
                     <table class="table table-bordered" id="dynamic_field">
                     <div class="card-header">
                       <h3 class="card-title">More Images (Click Add For More Image)</h3>
-                    </div> 
-                      <tr>  
-                          <td><input type="file" accept="image/*" name="images[]" class="form-control name_list" /></td>  
-                          <td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td>  
-                      </tr>  
-                    </table>    
+                    </div>
+                      <tr>
+                          <td><input type="file" accept="image/*" name="images[]" class="form-control name_list" /></td>
+                          <td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td>
+                          @php
+                            $images = json_decode($product->images,true);
+                        @endphp
+                       @if(!$images)
+                        @else
+                        <div class="row" >
+                            @foreach($images as $key => $image)
+                            <div class="col-md-4" >
+                                <img alt="" src="{{asset('files/product/'.$image)}}" style="width: 100px; height: 80px; padding: 10px;"/>
+                                <input type="hidden" name="old_images[]" value="{{ $image }}">
+                                <button type="button" class="remove-files" style="border: none;">X</button>
+                            </div>
+                            @endforeach
+                            </div>
+                       @endif
+                      </tr>
+                    </table>
                   </div>
                      <div class="card p-4">
                         <h6>Featured Product</h6>
@@ -223,7 +242,7 @@
                         <h6>Status</h6>
                        <input type="checkbox" name="status" value="1" @if($product->status==1) checked @endif data-bootstrap-switch data-off-color="danger" data-on-color="success">
                      </div>
-                  
+
               </div>
               <!-- /.card-body -->
             </div>
@@ -269,24 +288,27 @@
 
 
 
-    $(document).ready(function(){      
+    $(document).ready(function(){
        var postURL = "<?php echo url('addmore'); ?>";
-       var i=1;  
+       var i=1;
 
 
-       $('#add').click(function(){  
-            i++;  
-            $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" accept="image/*" name="images[]" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
-       });  
+       $('#add').click(function(){
+            i++;
+            $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" accept="image/*" name="images[]" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+       });
 
-       $(document).on('click', '.btn_remove', function(){  
-            var button_id = $(this).attr("id");   
-            $('#row'+button_id+'').remove();  
-       });  
-     }); 
+       $(document).on('click', '.btn_remove', function(){
+            var button_id = $(this).attr("id");
+            $('#row'+button_id+'').remove();
+       });
+     });
 
- 
 
+//edit product imahe remove by cros btn
+  $('.remove-files').on('click', function(){
+    $(this).parents(".col-md-4").remove();
+});
 
 
 </script>

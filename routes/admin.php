@@ -62,7 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::post('/store', [ProductController::class, 'store'])->name('store.product');
         Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-        // Route::post('/update', [ProductController::class, 'update'])->name('category.update');
+        Route::post('/update', [ProductController::class, 'update'])->name('update.product');
         Route::get('/active-featured/{id}', [ProductController::class, 'activefeatured']);
         Route::get('/not-featured/{id}', [ProductController::class, 'notfeatured']);
         Route::get('/active-deal/{id}', [ProductController::class, 'activedeal']);

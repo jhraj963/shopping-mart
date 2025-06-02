@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Brand;
+use File;
 
 // use Intervention\Image\Facades\Image;
 use Image;
@@ -208,7 +209,92 @@ class ProductController extends Controller
         $warehouse = DB::table('warehouses')->get();
         $pickup_point = DB::table('pickup_point')->get();
 
-        return view('admin.product.edit', compact('product', 'category', 'brand', 'warehouse', 'pickup_point'));
+        //For Chid Category
+        $childcategory=DB::table('childcategories')->where('category_id',$product->category_id)->get();
+
+        return view('admin.product.edit', compact('product', 'category', 'brand', 'warehouse', 'pickup_point', 'childcategory'));
+    }
+
+
+    // Product Update
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'code' => 'required|max:60',
+            'subcategory_id' => 'required',
+            'brand_id' => 'required',
+            'unit' => 'required',
+            'selling_price' => 'required',
+            'color' => 'required',
+            'description' => 'required',
+        ]);
+
+        // find category id
+        $subcategory = DB::table('subcategories')->where('id', $request->subcategory_id)->first();
+        $slug = Str::slug($request->name, '-');
+
+        $data = array();
+        $data['name'] = $request->name;
+        $data['slug'] = Str::slug($request->name, '-');
+        $data['code'] = $request->code;
+        $data['category_id'] = $subcategory->category_id;
+        $data['subcategory_id'] = $request->subcategory_id;
+        $data['childcategory_id'] = $request->childcategory_id;
+        $data['brand_id'] = $request->brand_id;
+        $data['pickup_point_id'] = $request->pickup_point_id;
+        $data['unit'] = $request->unit;
+        $data['tags'] = $request->tags;
+        $data['color'] = $request->color;
+        $data['size'] = $request->size;
+        $data['video'] = $request->video;
+        $data['purchase_price'] = $request->purchase_price;
+        $data['selling_price'] = $request->selling_price;
+        $data['discount_price'] = $request->discount_price;
+        $data['stock_quantity'] = $request->stock_quantity;
+        $data['warehouse'] = $request->warehouse;
+        $data['description'] = $request->description;
+        $data['featured'] = $request->featured;
+        $data['today_deal'] = $request->today_deal;
+        $data['product_slider'] = $request->product_slider;
+        $data['status'] = $request->status;
+        $data['trendy'] = $request->trendy;
+
+
+        //Check old thumbnail
+        $thumbnail = $request->file('thumbnail');
+        if ($thumbnail) {
+
+            $thumbnail = $request->thumbnail;
+            $photoname = $slug . '.' . $thumbnail->getClientOriginalExtension();
+            Image::make($thumbnail)->resize(600, 600)->save('files/product/' . $photoname);
+            $data['thumbnail'] = $photoname;   // public/files/product/abc.jpg
+        }
+
+        //__multiple image update__//
+
+        $old_images = $request->has('old_images');
+        if ($old_images) {
+            $images = $request->old_images;
+            $data['images'] = json_encode($images);
+        } else {
+            $images = array();
+            $data['images'] = json_encode($images);
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $key => $image) {
+                $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(600, 600)->save('files/product/' . $imageName);
+                array_push($images, $imageName);
+            }
+            $data['images'] = json_encode($images);
+        }
+
+        DB::table('products')->where('id', $request->id)->update($data);
+
+        return redirect()->back()->with('success', 'Product Successfully Updated!');
     }
 
     // not featured
@@ -265,6 +351,21 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+
+        $product = DB::table('products')->where('id', $id)->first();  //product data get
+        if (File::exists('files/product/' . $product->thumbnail)) {
+            FIle::delete('files/product/' . $product->thumbnail);
+        }
+
+        $images = json_decode($product->images, true);
+        if (isset($images)) {
+            foreach ($images as $key => $image) {
+                if (File::exists('files/product/' . $image)) {
+                    FIle::delete('files/product/' . $image);
+                }
+            }
+        }
+
         DB::table('products')->where('id', $id)->delete();
         return response()->json('Product Deleted Successfully');
     }
