@@ -35,7 +35,8 @@ class CampaignController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $actionbtn = '<a href="" class="btn btn-info btn-sm  edit" data-id="' . $row->id . '" data-toggle="modal" data-target="#editModal">Edit <i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="' . route('campaign.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>';
+                            <a href="' . route('campaign.delete', [$row->id]) . '" class="btn btn-danger btn-sm" id="delete">Delete <i class="fa-solid fa-delete-left"></i></a>
+                            <a href="' . route('campaign.product', [$row->id]) . '" class="btn btn-success btn-sm"><i class="fas fa-plus"></i></a>';
 
                     return $actionbtn;
                 })
@@ -136,4 +137,20 @@ class CampaignController extends Controller
         return redirect()->back()->with('warning', 'Campaign Successfully Deleted');
     }
 
+
+    // //Campaign Product All
+    public function campaignProduct($campaign_id)
+    {
+        $products = DB::table('products')->leftJoin('categories', 'products.category_id', 'categories.id')
+                    ->leftJoin('subcategories', 'products.subcategory_id', 'subcategories.id')
+                    ->leftJoin('brands', 'products.brand_id', 'brands.id')->select('products.*', 'categories.category_name', 'subcategories.subcategory_name', 'brands.brand_name')
+                    ->where('products.status','1')
+                    ->get();
+
+            return view('admin.offer.campaign_product.index',compact('products','campaign_id'));
+    }
+
+
+    // Add Product To Campaign
+    public function AddProductToCampaign($id, $campaign_id)
 }
