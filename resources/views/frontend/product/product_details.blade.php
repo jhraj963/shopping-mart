@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{ asset('frontend/styles/product_responsive.css') }}">
 <script src="{{ asset('frontend/js/cart_custom.js') }}"></script>
 
+{{--  For Share  --}}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="{{ asset('js/share.js') }}"></script>
+
 @include('layouts.front_partial.collaps_nav')
 
 <style type="text/css">
@@ -181,6 +185,8 @@
 								    <a href="{{ route('add.wishlist',$product->id) }}" class="btn btn-outline-primary fa fa-heart" type="button">Add to wishlist</a>
 								  </div>
 								</div>
+                                <h4>Share this post:</h4>
+                                {!! Share::page(url()->current(), 'Check this out!')->facebook()->twitter()->linkedin()->whatsapp() !!}
 							</div>
 
 						</form>

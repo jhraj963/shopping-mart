@@ -164,6 +164,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -192,6 +193,7 @@ return [
         // 'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Cart' => Hardevine\Cart\Facades\Cart::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ])->toArray(),
 
 ];

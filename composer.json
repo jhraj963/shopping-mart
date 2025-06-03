@@ -10,6 +10,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "hardevine/shoppingcart": "^3.4",
         "intervention/image": "^2.7",
+        "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.21",
