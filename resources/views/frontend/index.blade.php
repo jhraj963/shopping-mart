@@ -332,30 +332,36 @@
 
 				<!-- Banner 2 Slider Item -->
                 @isset($campaign)
-                <div class="owl-item">
-					<div class="banner_2_item">
-						<div class="container fill_height">
-							<div class="row fill_height">
-								<div class="col-lg-4 col-md-6 fill_height">
-									<div class="banner_2_content">
-										<div class="banner_2_category">Campaign</div>
-										<div class="banner_2_title">{{ $campaign->title }}</div>
-										<div class="banner_2_text">Start: {{ $campaign->start_date }} End:{{ $campaign->end_date }}</div>
-										<div class="button banner_2_button"><a href="#">Explore</a></div>
-									</div>
-
-								</div>
-								<div class="col-lg-8 col-md-6 fill_height">
-									<div class="banner_2_image_container">
-										<div class="banner_2_image">
-                                            <a href=""><img src="{{ $campaign->image }}" alt=""></a>
+                @php
+                    $today=strtotime(date('Y-m-d'));
+                    $campaign_start=strtotime($campaign->start_date);
+                    $campaign_end=strtotime($campaign->end_date);
+                @endphp
+                @if($today >= $campaign_start && $today <= $campaign_end)
+                    <div class="owl-item">
+                        <div class="banner_2_item">
+                            <div class="container fill_height">
+                                <div class="row fill_height">
+                                    <div class="col-lg-4 col-md-6 fill_height">
+                                        <div class="banner_2_content">
+                                            <div class="banner_2_category">Campaign</div>
+                                            <div class="banner_2_title">{{ $campaign->title }}</div>
+                                            <div class="banner_2_text">Start: {{ $campaign->start_date }} End:{{ $campaign->end_date }}</div>
+                                            <div class="button banner_2_button"><a href="#">Explore</a></div>
                                         </div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-6 fill_height">
+                                        <div class="banner_2_image_container">
+                                            <div class="banner_2_image">
+                                                <a href="{{ route('frontend.campaign.product',$campaign->id) }}"><img src="{{ $campaign->image }}" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @endisset
 
 

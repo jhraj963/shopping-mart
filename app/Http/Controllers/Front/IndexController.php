@@ -157,4 +157,16 @@ class IndexController extends Controller
     {
         return view('frontend.blog');
     }
+
+    // Campaign Product
+
+    public function CampaignProduct($id)
+    {
+        $products = DB::table('campaign_product')->leftJoin('products', 'campaign_product.product_id', 'products.id')
+            ->select('products.name', 'products.code', 'products.thumbnail','products.slug', 'campaign_product.*')
+            ->where('campaign_product.campaign_id', $id)
+            ->paginate(30);
+
+        return view('frontend.campaign.product_list', compact('products'));
+    }
 }
