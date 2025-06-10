@@ -31,7 +31,7 @@ class IndexController extends Controller
         return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product', 'trendy_product','home_category', 'brand', 'random_product', 'todaydeal','review', 'campaign'));
     }
 
-    // show single product
+    // show single product Details
 
     public function ProductDetails($slug)
     {
@@ -168,5 +168,20 @@ class IndexController extends Controller
             ->paginate(30);
 
         return view('frontend.campaign.product_list', compact('products'));
+    }
+
+    // show single Campaign product Details
+
+    public function CampaignProductDetails($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+                    Product::where('slug', $slug)->increment('product_views');
+        $product_price=DB::table('campaign_product')->where('product_id', $product->id)->first();
+        $related_product = DB::table('campaign_product')->leftJoin('products', 'campaign_product.product_id', 'products.id')
+            ->select('products.*', 'campaign_product.*')
+            ->inRandomOrder(15)->get();
+        $review = Review::where('product_id', $product->id)->orderBy('id', 'DESC')->take(8)->get();
+
+        return view('frontend.campaign.product_details', compact('product', 'related_product', 'review', 'product_price'));
     }
 }

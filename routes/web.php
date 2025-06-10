@@ -128,6 +128,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function () {
 
     // Campaign Product
     Route::get('/campaign/product/{id}', [IndexController::class, 'CampaignProduct'])->name('frontend.campaign.product');
+    Route::get('/campaign-product-details/{slug}', [IndexController::class, 'CampaignProductDetails'])->name('campaign.product.details');
 
 
 

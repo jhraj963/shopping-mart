@@ -58,7 +58,7 @@
 
                                     <div class="product_price">{{ $setting->currency }}{{ $row->price }}</div>
 
-                                    <div class="product_name"><div><a href="{{ route('product.details',$row->slug) }}" tabindex="0">{{ $row->name }}</a></div></div>
+                                    <div class="product_name"><div><a href="{{ route('campaign.product.details',$row->slug) }}" tabindex="0">{{ $row->name }}</a></div></div>
                                 </div>
                                 <a href="{{ route('add.wishlist',$row->product_id) }}"><div class="product_fav"><i class="fas fa-heart"></i></div> </a>
                             </div>
