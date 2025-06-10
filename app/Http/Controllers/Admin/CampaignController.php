@@ -152,5 +152,46 @@ class CampaignController extends Controller
 
 
     // Add Product To Campaign
-    public function AddProductToCampaign($id, $campaign_id)
+    public function ProductAddToCampaign($campaign_id, $id)
+    {
+
+        $campaign = DB::table('campaigns')->where('id', $campaign_id)->first();
+        $product = DB::table('products')->where('id', $id)->first();
+        // dd($product, $campaign);
+        // Discount Calculate
+        $discount_amount = ($product->selling_price/100)*$campaign->discount;
+        $discount_price = $product->selling_price-$discount_amount;
+
+        $data=array();
+        $data['product_id'] = $id;
+        $data['campaign_id'] = $campaign_id;
+        $data['price'] = $discount_price;
+        DB::table('campaign_product')->insert($data);
+
+        return redirect()->back()->with('success', 'Product Successfully Add To Campaign');
+    }
+
+
+    // Product List on Campaign
+    public function ProductListCampaign($campaign_id)
+    {
+        $products = DB::table('campaign_product')->leftJoin('products', 'campaign_product.product_id', 'products.id')
+                    ->select('products.name','products.code','products.thumbnail', 'campaign_product.*')
+                    ->where('campaign_product.campaign_id', $campaign_id)
+                    ->get();
+        $campaign=DB::table('campaigns')->where('id',$campaign_id)->first();
+
+        return view('admin.offer.campaign_product.campaign_product_list', compact('products', 'campaign'));
+    }
+
+
+    // Remove Product List on Campaign
+    public function RemoveProduct($id)
+    {
+        DB::table('campaign_product')->where('id',$id)->delete();
+
+        return redirect()->back()->with('error', 'Campaign Product Successfully Deleted!');
+    }
+
+
 }

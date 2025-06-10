@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('admin_content')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,12 +9,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">All Campaign Products </h1>
+            <h1 class="m-0">Campaign: {{ $campaign->title }} </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <a class="btn btn-primary" href="{{ route('campaign.product.list',$campaign_id) }}">Product List</a>
-               </ol>
+
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -24,7 +22,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All Campaign Products List Here</h3>
+                <h3 class="card-title">All Products For Campaign Exist</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -35,30 +33,22 @@
                     <th>Name</th>
                     <th>Image</th>
                     <th>Code</th>
-                    <th>Category</th>
-                    <th>Brand</th>
                     <th>Price</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                     @foreach ($products as $key=>$row )
-                    @php
-                        $exist=DB::table('campaign_product')->where('campaign_id',$campaign_id)->where('product_id',$row->id)->first();
-                    @endphp
                     <tr>
                         <td>{{ $key+1 }}</td>
                         <td>{{ $row->name }}</td>
                         <td><img src="{{ asset('files/product/'.$row->thumbnail) }}" height="32" width="32"></td>
                         <td>{{ $row->code }}</td>
-                        <td>{{ $row->category_name }}</td>
-                        <td>{{ $row->brand_name }}</td>
-                        <td>{{ $row->selling_price }}</td>
+                        <td>{{ $row->price }}</td>
                         <td>
-                            @if($exist)
-                            @else
-                            <a href="{{ route('add.product.to.campaign',[$campaign_id,$row->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-plus"></i></a>             
-                            @endif
+
+                            <a href="{{ route('remove.product.to.campaign', $row->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+
                         </td>
                     </tr>
                     @endforeach

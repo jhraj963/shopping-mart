@@ -81,17 +81,17 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::post('/update', [CouponController::class, 'update'])->name('coupon.update');
     });
 
-    //Campaign Route List
+    //Campaign Product Route List
 
     Route::group(['prefix' => 'campaign-product'], function () {
         Route::get('/{campaign_id}', [CampaignController::class, 'campaignProduct'])->name('campaign.product');
-        Route::post('/add/{id}/{{campaign_id}}', [CampaignController::class, 'AddProductToCampaign'])->name('add.product.to.campaign');
-        // Route::get('/delete/{id}', [CampaignController::class, 'destroy'])->name('campaign.delete');
-        // Route::get('/edit/{id}', [CampaignController::class, 'edit']);
+        Route::get('/add/{id}/{campaign_id}', [CampaignController::class, 'ProductAddToCampaign'])->name('add.product.to.campaign');
+        Route::get('/list/{campaign_id}', [CampaignController::class, 'ProductListCampaign'])->name('campaign.product.list');
+        Route::get('/remove/{id}', [CampaignController::class, 'RemoveProduct'])->name('remove.product.to.campaign');
         // Route::post('/update', [CampaignController::class, 'update'])->name('campaign.update');
     });
 
-    //Campaign Product Route List
+    //Campaign Route List
 
     Route::group(['prefix' => 'campaign'], function () {
         Route::get('/', [CampaignController::class, 'index'])->name('campaign.index');
